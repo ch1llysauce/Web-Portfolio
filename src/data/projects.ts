@@ -2,6 +2,21 @@ import type { Project } from "../types/projects";
 
 export const projects: Project[] = [
     {
+        id: 'mediahub',
+        slug: 'mediahub',
+        title: 'MediaHub',
+        tagline: 'MOBILE • FLUTTER',
+        category: ['mobile'],
+        description: 'Centralized media automation and video processing application with background rendering capabilities.',
+        tech_stack: ['Flutter', 'Dart', 'SQLite', 'FFmpeg'],
+        image: '',
+        featured: true,
+        links: {
+            apk: 'https://drive.google.com/file/d/1k7cTHZLA6vkplZBmgBYV5SX3F7rF7xIU/view?usp=sharing',
+            github: 'https://github.com/ch1llysauce/MediaHub.git'
+        }
+    },
+    {
         id: 'mathmentor-ai',
         slug: 'mathmentor-ai',
         title: 'MathMentor AI',
@@ -15,21 +30,6 @@ export const projects: Project[] = [
             web: 'https://math-mentor--ai.vercel.app',
             apk: 'https://drive.google.com/file/d/1m-BFq6Wm6XaJdYPxZoQUEToC9daYzTN0/view?usp=sharing',
             github: 'https://github.com/ch1llysauce/MathMentor-AI.git'
-        }
-    },
-    {
-        id: 'mediahub',
-        slug: 'mediahub',
-        title: 'MediaHub',
-        tagline: 'MOBILE • FLUTTER',
-        category: ['mobile'],
-        description: 'Centralized media automation and video processing application with background rendering capabilities.',
-        tech_stack: ['Flutter', 'Dart', 'SQLite', 'FFmpeg'],
-        image: '',
-        featured: true,
-        links: {
-            apk: 'https://drive.google.com/file/d/1k7cTHZLA6vkplZBmgBYV5SX3F7rF7xIU/view?usp=sharing',
-            github: 'https://github.com/ch1llysauce/MediaHub.git'
         }
     },
     {
@@ -143,20 +143,6 @@ export const projects: Project[] = [
         category: ['others'],
         description: 'High performance CLI financial utility computing logarithmic interest curves.',
         tech_stack: ['C++ Terminal'],
-        image: '',
-        featured: false,
-        links: {
-            github: 'https://github.com/ch1llysauce'
-        }
-    },
-    {
-        id: 'mathmentor-ai',
-        slug: 'mathmentor-ai',
-        title: 'MathMentor AI',
-        tagline: 'WEB • FULL-STACK',
-        category: ['ai', 'web'],
-        description: 'Experimental web lab testing novel prompt strategies for step-by-step math solver AI.',
-        tech_stack: ['React', 'React.js'],
         image: '',
         featured: false,
         links: {

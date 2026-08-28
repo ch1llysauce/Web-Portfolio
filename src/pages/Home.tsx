@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Hero } from '../components/sections/Hero';
 import { About } from '../components/sections/About';
 import { TechStack } from '../components/sections/TechStack';
 import { FeaturedProjects } from '../components/sections/FeaturedProjects';
-import { ProjectGrid } from '../components/sections/ProjectGrid';
 import { Journey } from '../components/sections/Journey';
 import { Contact } from '../components/sections/Contact';
 
 export const Home: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location]);
+
   return (
     <div className="space-y-20 pb-16">
       <Hero />
@@ -23,7 +39,6 @@ export const Home: React.FC = () => {
         </div>
 
         <FeaturedProjects />
-        <ProjectGrid />
         <Journey />
         <Contact />
       </div>

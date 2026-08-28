@@ -1,25 +1,23 @@
 import React from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { projects } from '../data/projects';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 
-interface ProjectDetailsProps {
-  slug?: string;
-}
-
-export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ slug }) => {
-  // Kung walang pinasang prop, subukang basahin mula sa URL pathname (/projects/:slug)
-  const currentSlug = slug || window.location.pathname.split('/').pop();
-  const project = projects.find((p) => p.slug === currentSlug || p.id === currentSlug);
+export const ProjectDetails: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const project = projects.find((p) => p.slug === slug || p.id === slug);
 
   if (!project) {
     return (
       <div className="max-w-4xl mx-auto px-4 pt-40 pb-20 text-center space-y-4">
         <h1 className="text-2xl font-bold text-white">Project Not Found</h1>
         <p className="text-slate-400 text-sm">The project you are looking for does not exist or has been moved.</p>
-        <Button variant="primary" size="md" href="/projects">
-          ← Back to All Projects
-        </Button>
+        <Link to="/projects">
+          <Button variant="primary" size="md">
+            ← Back to All Projects
+          </Button>
+        </Link>
       </div>
     );
   }
@@ -28,12 +26,12 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ slug }) => {
     <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 space-y-10">
       {/* Back Button */}
       <div>
-        <a
-          href="/projects"
+        <Link
+          to="/projects"
           className="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors"
         >
           ← Back to Projects
-        </a>
+        </Link>
       </div>
 
       {/* Header Info */}

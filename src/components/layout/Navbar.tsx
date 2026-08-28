@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../ui/Button';
 
 export const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+
+    const isHome = location.pathname === '/';
 
     const navLinks = [
         { label: 'About', href: '#about' },
@@ -12,20 +16,24 @@ export const Navbar: React.FC = () => {
         { label: 'Contact', href: '#contact' },
     ];
 
+    const getLinkHref = (hash: string) => {
+        return isHome ? hash : `/${hash}`;
+    };
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-[#070913]/80 backdrop-blur-xl border-b border-[#181d33]/80">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 {/* Logo */}
-                <a href="#" className="flex items-center gap-1 text-white font-mono font-bold text-lg tracking-wide hover:opacity-90 transition-opacity">
+                <Link to="/" className="flex items-center gap-1 text-white font-mono font-bold text-lg tracking-wide hover:opacity-90 transition-opacity">
                     <span className="text-blue-400 font-extrabold">&lt;/&gt;</span> CHILLY
-                </a>
+                </Link>
 
                 {/* Desktop Links */}
                 <div className="hidden md:flex items-center gap-8">
                     {navLinks.map((link) => (
                         <a
                             key={link.label}
-                            href={link.href}
+                            href={getLinkHref(link.href)}
                             className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
                         >
                             {link.label}
@@ -62,7 +70,7 @@ export const Navbar: React.FC = () => {
                     {navLinks.map((link) => (
                         <a
                             key={link.label}
-                            href={link.href}
+                            href={getLinkHref(link.href)}
                             onClick={() => setIsOpen(false)}
                             className="block text-sm font-medium text-slate-300 hover:text-white py-1"
                         >
