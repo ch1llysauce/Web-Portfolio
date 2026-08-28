@@ -2,37 +2,59 @@ import type { Milestone } from "../types/journey";
 
 export const journeyMilestones: Milestone[] = [
     {
-        id: 'ai-mobile-era',
-        year: '2025 - Present',
-        title: 'Mobile & AI Engineering',
-        subtitle: 'Production & Architecture',
-        description: 'Specializing in offline-first mobile applications, state sync, and integrating LLM-powered features into production systems.',
-        tech_stack: ['React Native', 'Expo', 'Flutter', 'Groq AI API']
+        id: 'cpp-foundations',
+        year: 'Step 1',
+        title: 'C++ / C#',
+        subtitle: 'Foundations',
+        description: 'Programming basics and OOP projects',
+        tech_stack: ['C++', 'C#', 'OOP']
     },
     {
-        id: 'fullstack-web-era',
-        year: '2025',
-        title: 'Full-Stack Web Development',
-        subtitle: 'Scalable Web Platforms',
-        description: 'Engineered database-driven web platforms, RESTful services, and real-time interactive user interfaces.',
-        tech_stack: ['React', 'Node.js', 'Express', 'Firebase', 'MongoDB']
+        id: 'web-dev-basics',
+        year: 'Step 2',
+        title: 'Web Development',
+        subtitle: 'Frontend + Login',
+        description: 'HTML, CSS, Simulator, DOM, UI/UX',
+        tech_stack: ['HTML', 'CSS', 'DOM', 'UI/UX']
     },
     {
-        id: 'frontend-web',
-        year: '2024',
-        title: 'Frontend Web Development',
-        subtitle: 'Interactive Web Interfaces',
-        description: 'Developed interactive web interfaces using React and Tailwind CSS.',
-        tech_stack: ['HTML', 'CSS', 'JavaScript', 'React', 'Tailwind CSS']
+        id: 'react-firebase-era',
+        year: 'Step 3',
+        title: 'React + Firebase',
+        subtitle: 'Dynamic Apps',
+        description: 'Develop web applications',
+        tech_stack: ['React', 'Firebase']
     },
     {
-        id: 'academic-foundation',
-        year: '2023 - 2027',
-        title: 'BS Computer Science',
-        subtitle: 'Academic Foundations',
-        description: 'Core computer science fundamentals covering algorithms, software architectures, low-level programming, and object-oriented paradigms.',
-        tech_stack: ['C++', 'Java', 'Data Structures', 'OOP', 'Python', 'Dart'],
-        isEducation: true,
-        expectedGraduation: 'Expected Graduation: 2027'
+        id: 'mern-stack-era',
+        year: 'Step 4',
+        title: 'MERN Stack',
+        subtitle: 'Full Stack',
+        description: 'Building product web solutions',
+        tech_stack: ['MongoDB', 'Express', 'React', 'Node']
+    },
+    {
+        id: 'react-native-era',
+        year: 'Step 5',
+        title: 'React Native',
+        subtitle: 'Mobile Development',
+        description: 'Cross platform mobile applications',
+        tech_stack: ['React Native', 'Expo']
+    },
+    {
+        id: 'ai-fullstack-era',
+        year: 'Step 6',
+        title: 'AI + Full-Stack',
+        subtitle: 'Intelligence',
+        description: 'Intelligence and smart systems',
+        tech_stack: ['AI Integrations', 'LLMs', 'Groq']
+    },
+    {
+        id: 'flutter-systems-era',
+        year: 'Step 7',
+        title: 'Flutter / Systems',
+        subtitle: 'Performance',
+        description: 'High performance mobile applications',
+        tech_stack: ['Flutter', 'Dart', 'Systems']
     }
 ];

@@ -1,0 +1,104 @@
+import React from 'react';
+import { projects } from '../data/projects';
+import { Badge } from '../components/ui/Badge';
+import { Button } from '../components/ui/Button';
+
+interface ProjectDetailsProps {
+  slug?: string;
+}
+
+export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ slug }) => {
+  // Kung walang pinasang prop, subukang basahin mula sa URL pathname (/projects/:slug)
+  const currentSlug = slug || window.location.pathname.split('/').pop();
+  const project = projects.find((p) => p.slug === currentSlug || p.id === currentSlug);
+
+  if (!project) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 pt-40 pb-20 text-center space-y-4">
+        <h1 className="text-2xl font-bold text-white">Project Not Found</h1>
+        <p className="text-slate-400 text-sm">The project you are looking for does not exist or has been moved.</p>
+        <Button variant="primary" size="md" href="/projects">
+          ← Back to All Projects
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 space-y-10">
+      {/* Back Button */}
+      <div>
+        <a
+          href="/projects"
+          className="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors"
+        >
+          ← Back to Projects
+        </a>
+      </div>
+
+      {/* Header Info */}
+      <div className="space-y-4">
+        <div className="flex flex-wrap gap-2">
+          {project.category.map((cat) => (
+            <Badge key={cat} variant="category">
+              {cat}
+            </Badge>
+          ))}
+        </div>
+
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          {project.title}
+        </h1>
+
+        <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+          {project.description}
+        </p>
+
+        {/* Action CTAs */}
+        <div className="flex flex-wrap items-center gap-3 pt-2">
+          {project.links.web && (
+            <Button variant="primary" size="md" href={project.links.web} external>
+              Live Demo ↗
+            </Button>
+          )}
+          {project.links.apk && (
+            <Button variant="primary" size="md" href={project.links.apk} external>
+              Download APK ⤓
+            </Button>
+          )}
+          {project.links.github && (
+            <Button variant="primary" size="md" href={project.links.github} external>
+              Source Code ↗
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Hero / Media Banner */}
+      <div className="aspect-video w-full overflow-hidden rounded-3xl bg-[#161c2e] border border-[#232d4b] shadow-2xl">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover object-top"
+          onError={(e) => {
+            (e.target as HTMLElement).style.display = 'none';
+          }}
+        />
+      </div>
+
+      {/* Tech Stack Breakdown */}
+      <div className="rounded-2xl bg-[#0e1322] border border-[#1e263d] p-6 space-y-3">
+        <h2 className="text-xs font-mono uppercase tracking-wider text-slate-400">
+          Technologies & Tools Used
+        </h2>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {project.tech_stack.map((tech) => (
+            <Badge key={tech} variant="tech" className="text-xs py-1 px-3">
+              {tech}
+            </Badge>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+};
