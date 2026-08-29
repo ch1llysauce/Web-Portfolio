@@ -19,8 +19,8 @@ export const About: React.FC = () => {
                         <div className="relative shrink-0 flex flex-col items-center">
                             <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-[#a9a9ac] dark:border-[#292929] shadow-lg flex items-center justify-center">
                                 <img
-                                    src="/public/2x2.png"
-                                    alt="Profile"
+                                    src="/2x2.png"
+                                    alt="Chilldon Paul Carreon"
                                     className="w-full h-full object-cover"
                                     onError={(e) => {
                                         (e.target as HTMLElement).style.display = 'none';
