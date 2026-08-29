@@ -46,7 +46,7 @@ export const About: React.FC = () => {
                                 About Me
                             </h2>
                             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                                I'm a 4th-year Computer Science student and proactive software developer who loves building modern web applications, mobile platforms, and AI-powered systems.
+                                I'm <span className="font-bold text-slate-900 dark:text-white">Chilldon Paul Carreon</span>, a 4th-year Computer Science student and proactive software developer who loves building modern web applications, mobile platforms, and AI-powered systems.
                             </p>
                             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                                 I enjoy working across the full stack, from intuitive user interfaces to robust backends and practical AI integrations.
@@ -78,8 +78,8 @@ export const About: React.FC = () => {
                             </div>
                             <div className="space-y-0.5 min-w-0">
                                 <div className="text-[9px] font-mono uppercase tracking-wider text-slate-500">Location</div>
-                                <div className="text-xs font-bold text-slate-900 dark:text-white leading-tight truncate">Philippines</div>
-                                <div className="text-[10px] text-slate-500 dark:text-slate-400">Remote & Hybrid Ready</div>
+                                <div className="text-xs font-bold text-slate-900 dark:text-white leading-tight truncate">Quezon City, Philippines</div>
+                                <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">Remote • Hybrid • On-site</div>
                             </div>
                         </div>
 

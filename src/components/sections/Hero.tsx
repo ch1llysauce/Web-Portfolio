@@ -121,16 +121,16 @@ export const Hero: React.FC = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     {/* Left Text Column */}
-                    <div className="lg:col-span-7 space-y-7">
+                    <div className="lg:col-span-7 space-y-7 lg:pr-4 xl:pr-8">
                         <div className="space-y-3">
                             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1]"
                                 style={{ fontFamily: "'Urbanist', sans-serif" }}>
                                 <span className="text-slate-900 dark:text-white">Hi, I'm{' '}</span>
                                 <span className="bg-gradient-to-r from-cyan-500 via-indigo-500 to-violet-500 dark:from-cyan-400 dark:via-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
-                                    Chilly.
+                                    Chilly. 
                                 </span>
                                 <br />
-                                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-300 dark:via-purple-300 dark:to-pink-300 bg-clip-text text-transparent">
+                                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-300 dark:via-purple-300 dark:to-pink-300 bg-clip-text text-transparent sm:mt-1 inline-block">
                                     Software
                                 </span>{' '}
                                 <span className="text-slate-900 dark:text-white">Developer.</span>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { ThemeToggle } from '../ui/ThemeToggle';
+import { LogoMark } from '../ui/LogoMark';
 
 export const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -126,11 +127,10 @@ export const Navbar: React.FC = () => {
                             window.history.replaceState(null, '', '/');
                         }
                     }}
-                    className="flex items-center gap-1.5 hover:opacity-90 transition-opacity outline-none focus:outline-none select-none"
-                    style={{ fontFamily: "'Fira Code', monospace" }}
+                    className="flex items-center outline-none focus:outline-none select-none bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent ring-0 focus:ring-0 focus-visible:ring-0 [-webkit-tap-highlight-color:transparent]"
+                    title="Chilly - Home"
                 >
-                    <span className="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent font-bold text-lg">&lt;/&gt;</span>
-                    <span className="text-slate-900 dark:text-white font-bold text-sm tracking-widest uppercase" style={{ fontFamily: "'Urbanist', sans-serif" }}>Chilly</span>
+                    <LogoMark />
                 </Link>
 
                 {/* Desktop Links with SPA Client-Side Transitions */}

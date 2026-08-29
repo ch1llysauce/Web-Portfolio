@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { LogoMark } from './LogoMark';
+
 export const LoadingScreen: React.FC = () => {
     const [progress, setProgress] = useState(0);
     const [statusText, setStatusText] = useState('Initializing environment...');
@@ -63,30 +65,10 @@ export const LoadingScreen: React.FC = () => {
             <div className="absolute top-1/3 left-1/3 w-[300px] h-[250px] bg-cyan-600/10 blur-[130px] rounded-full pointer-events-none" />
 
             {/* Central Terminal / Loading Card */}
-            <div className="relative z-10 w-full max-w-sm sm:max-w-md px-6 text-center space-y-6">
-                {/* Logo & Spinner Icon */}
-                <div className="relative inline-flex items-center justify-center">
-                    {/* Outer glowing pulsing ring */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-600 blur-xl opacity-40 animate-pulse" />
-                    
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/95 dark:bg-[#0c0e1d] border border-black/10 dark:border-white/10 shadow-2xl flex items-center justify-center backdrop-blur-xl">
-                        <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent font-mono font-black text-2xl sm:text-3xl animate-pulse">
-                            &lt;/&gt;
-                        </span>
-                    </div>
-                </div>
-
-                {/* Brand Name & Loading Tag */}
-                <div className="space-y-1">
-                    <h2
-                        className="text-xl sm:text-2xl font-black text-white tracking-widest uppercase"
-                        style={{ fontFamily: "'Urbanist', sans-serif" }}
-                    >
-                        Chilly<span className="text-indigo-400">.dev</span>
-                    </h2>
-                    <p className="text-[11px] font-mono text-slate-500 tracking-wider">
-                        SOFTWARE DEVELOPER PORTFOLIO
-                    </p>
+            <div className="relative z-10 w-full max-w-sm sm:max-w-md px-6 text-center space-y-8">
+                {/* Logo Mark */}
+                <div className="flex justify-center items-center">
+                    <LogoMark showWordmark={false} className="scale-125 sm:scale-150 origin-center" />
                 </div>
 
                 {/* Thick, Vibrant, Responsive Progress Bar */}

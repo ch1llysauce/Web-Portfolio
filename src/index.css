@@ -122,15 +122,6 @@ html.light nav {
   border-bottom-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-html.light nav a {
-  color: #475569;
-}
-
-html.light nav a:hover {
-  color: #0f172a !important;
-  background-color: rgba(0, 0, 0, 0.05) !important;
-}
-
 html.light footer {
   background-color: #f8fafc !important;
   border-top-color: rgba(0, 0, 0, 0.08) !important;

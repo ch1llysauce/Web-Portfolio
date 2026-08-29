@@ -8,7 +8,7 @@ export const projects: Project[] = [
         tagline: 'MOBILE • FLUTTER',
         category: ['mobile'],
         description: 'Centralized media automation and video processing application with background rendering capabilities.',
-        tech_stack: ['Flutter', 'Dart', 'SQLite', 'FFmpeg'],
+        tech_stack: ['Flutter', 'Dart', 'SQLite'],
         image_light: '/projects/light/mediahub.png',
         image_dark: '/projects/dark/mediahub.png',
         image_position: 'object-top',
