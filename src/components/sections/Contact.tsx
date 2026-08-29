@@ -7,15 +7,51 @@ export const Contact: React.FC = () => {
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        setTimeout(() => {
+        setErrorMessage(null);
+
+        const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+
+        if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
+            setErrorMessage('Web3Forms Access Key is not configured in .env yet. Please paste your key into the .env file!');
             setIsSubmitting(false);
-            setSubmitted(true);
-            setFormData({ name: '', email: '', subject: '', message: '' });
-        }, 1000);
+            return;
+        }
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: JSON.stringify({
+                    access_key: accessKey,
+                    name: formData.name,
+                    email: formData.email,
+                    subject: formData.subject || `New Message from ${formData.name}`,
+                    message: formData.message,
+                    from_name: 'Portfolio Contact Form',
+                }),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setSubmitted(true);
+                setFormData({ name: '', email: '', subject: '', message: '' });
+            } else {
+                setErrorMessage(result.message || 'Failed to send message. Please try again.');
+            }
+        } catch (error) {
+            setErrorMessage('Network error. Please check your internet connection or try again later.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -123,6 +159,13 @@ export const Contact: React.FC = () => {
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                         className="w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.08] px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/60 transition-colors resize-none" />
                                 </div>
+
+                                {errorMessage && (
+                                    <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-medium text-center">
+                                        {errorMessage}
+                                    </div>
+                                )}
+
                                 <Button type="submit" variant="primary" size="md" className="w-full" disabled={isSubmitting}>
                                     {isSubmitting ? (
                                         <span className="flex items-center justify-center gap-2">
