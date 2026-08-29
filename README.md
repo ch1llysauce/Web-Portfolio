@@ -1,78 +1,128 @@
-# React + TypeScript + Vite
+# Chilly — Software Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
 
-Currently, two official plugins are available:
+  <img src="public/favicon.svg" alt="Chilly Logo" width="120" />
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+  <h3>Personal Software Developer Portfolio & Progressive Web Application (PWA)</h3>
 
-## React Compiler
+  <p>
+    A high-performance, minimalist, and responsive developer portfolio built with modern web technologies.
+  </p>
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+  <p>
+    <a href="https://github.com/ch1llysauce"><img src="https://img.shields.io/badge/Author-Chilldon%20Paul%20Carreon-6366f1?style=for-the-badge" alt="Author" /></a>
+    <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" />
+    <img src="https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+    <img src="https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+    <img src="https://img.shields.io/badge/PWA-Enabled-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
+  </p>
+</div>
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- ⚡ **Blazing Fast SPA & Instant Transitions:** Built with React 19, React Router 7, and Vite 8 for smooth, zero-reload navigation.
+- 📱 **Progressive Web App (PWA):** Installable on desktop and mobile devices with offline caching powered by `vite-plugin-pwa` and Workbox.
+- 🌓 **Dynamic Theme Switching:** Seamless dark and light mode toggle with customized theme-aware screenshots and persistent state.
+- 🖼️ **Adaptive Project Showcase:** True 16:9 widescreen framing with custom positional viewport alignment (`object-contain`, `object-top`, etc.) for web and mobile project screenshots.
+- 📬 **Interactive Contact Matrix:** Direct integration with EmailJS for message delivery, along with interactive direct-action cards for Email, LinkedIn, and GitHub.
+- 🧩 **Modular Bento Architecture:** Clean, grid-based highlights for education, location, availability, and technical proficiencies.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Category | Technologies |
+| :--- | :--- |
+| **Frontend Framework** | React 19, TypeScript |
+| **Styling & UI** | Tailwind CSS v4, Lucide React Icons |
+| **Routing** | React Router 7 |
+| **Build & Tooling** | Vite 8, React Compiler, Babel Preset |
+| **PWA & Offline** | Vite Plugin PWA, Workbox Service Worker |
+| **Email Service** | EmailJS Browser SDK |
 
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (version 18+ recommended)
+- [npm](https://www.npmjs.com/) or [pnpm](https://pnpm.io/)
+
+### Installation & Local Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ch1llysauce/Web-Portfolio.git
+   cd Web-Portfolio
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables:**
+   Create a `.env` file in the root directory:
+   ```env
+   VITE_EMAILJS_SERVICE_ID=your_service_id
+   VITE_EMAILJS_TEMPLATE_ID=your_template_id
+   VITE_EMAILJS_PUBLIC_KEY=your_public_key
+   ```
+
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+5. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+6. **Preview production build:**
+   ```bash
+   npm run preview
+   ```
+
+---
+
+## 📁 Project Structure
+
+```text
+portfolio/
+├── public/               # Static assets, favicon, resume, icons
+├── src/
+│   ├── components/
+│   │   ├── layout/       # Navbar, Footer
+│   │   ├── sections/     # Hero, About, TechStack, ProjectGrid, Contact
+│   │   └── ui/           # LogoMark, ProjectCard, LoadingScreen, Button, ThemeToggle
+│   ├── context/          # ThemeContext (Dark/Light mode provider)
+│   ├── data/             # Curated project data & metadata
+│   ├── pages/            # Home, ProjectDetails, NotFound
+│   ├── types/            # TypeScript interfaces & types
+│   ├── App.tsx           # Main application routing
+│   └── main.tsx          # React DOM entrypoint & PWA registration
+├── index.html            # HTML shell with PWA meta tags
+├── vite.config.ts        # Vite, Tailwind, & PWA configuration
+└── package.json          # Project scripts and dependencies
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 👤 Author
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Chilldon Paul Carreon (Chilly)**
+- **GitHub:** [@ch1llysauce](https://github.com/ch1llysauce)
+- **LinkedIn:** [Chilldon Paul Carreon](https://www.linkedin.com/in/chilldon-paul-carreon/)
+- **Email:** [chillrigel05@gmail.com](mailto:chillrigel05@gmail.com)
 
-```
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
