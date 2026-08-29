@@ -1,18 +1,53 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
-import { Mail, MessageSquare, MapPin, Send } from 'lucide-react';
+import { Mail, MessageSquare, MapPin, Send, AlertCircle } from 'lucide-react';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 export const Contact: React.FC = () => {
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+    const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string; message?: string }>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [shakeKey, setShakeKey] = useState(0);
+
+    const validate = () => {
+        const errors: { name?: string; email?: string; message?: string } = {};
+        if (!formData.name.trim()) {
+            errors.name = 'Please enter your name.';
+        }
+        if (!formData.email.trim()) {
+            errors.email = 'Please enter your email.';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+            errors.email = 'Please enter a valid email address.';
+        }
+        if (!formData.message.trim()) {
+            errors.message = 'Please enter your message.';
+        }
+        return errors;
+    };
+
+    const handleInputChange = (field: 'name' | 'email' | 'subject' | 'message', value: string) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+        if (fieldErrors[field as keyof typeof fieldErrors]) {
+            setFieldErrors(prev => ({ ...prev, [field]: undefined }));
+        }
+        if (errorMessage) setErrorMessage(null);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitting(true);
         setErrorMessage(null);
+
+        const errors = validate();
+        if (Object.keys(errors).length > 0) {
+            setFieldErrors(errors);
+            setShakeKey(prev => prev + 1);
+            return;
+        }
+
+        setIsSubmitting(true);
 
         const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
@@ -33,9 +68,9 @@ export const Contact: React.FC = () => {
                     access_key: accessKey,
                     name: formData.name,
                     email: formData.email,
-                    subject: formData.subject || `New Message from ${formData.name}`,
+                    subject: formData.subject || `Portfolio Inquiry from ${formData.name}`,
                     message: formData.message,
-                    from_name: 'Portfolio Contact Form',
+                    from_name: `${formData.name}`,
                 }),
             });
 
@@ -44,6 +79,7 @@ export const Contact: React.FC = () => {
             if (result.success) {
                 setSubmitted(true);
                 setFormData({ name: '', email: '', subject: '', message: '' });
+                setFieldErrors({});
             } else {
                 setErrorMessage(result.message || 'Failed to send message. Please try again.');
             }
@@ -132,32 +168,85 @@ export const Contact: React.FC = () => {
                                 </Button>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
+                            <motion.form
+                                key={shakeKey}
+                                animate={shakeKey > 0 ? { x: [-6, 6, -4, 4, -2, 2, 0] } : {}}
+                                transition={{ duration: 0.35 }}
+                                noValidate
+                                onSubmit={handleSubmit}
+                                className="space-y-3 sm:space-y-3.5"
+                            >
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                                     <div>
-                                        <label className="block text-[11px] font-mono text-slate-500 mb-1 tracking-wider">Your Name</label>
-                                        <input type="text" required placeholder="Enter your name" value={formData.name}
-                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            className="w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.08] px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/60 transition-colors" />
+                                        <label className="block text-[11px] font-mono text-slate-500 mb-1 tracking-wider">Your Name *</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Enter your name"
+                                            value={formData.name}
+                                            onChange={(e) => handleInputChange('name', e.target.value)}
+                                            className={`w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none transition-colors ${
+                                                fieldErrors.name
+                                                    ? 'border-rose-500 ring-1 ring-rose-500/30'
+                                                    : 'border-black/10 dark:border-white/[0.08] focus:border-indigo-500/60'
+                                            }`}
+                                        />
+                                        {fieldErrors.name && (
+                                            <span className="text-[10px] text-rose-500 dark:text-rose-400 font-mono flex items-center gap-1 mt-1">
+                                                <AlertCircle className="w-3 h-3 shrink-0" />
+                                                {fieldErrors.name}
+                                            </span>
+                                        )}
                                     </div>
                                     <div>
-                                        <label className="block text-[11px] font-mono text-slate-500 mb-1 tracking-wider">Your Email</label>
-                                        <input type="email" required placeholder="Enter your email" value={formData.email}
-                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            className="w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.08] px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/60 transition-colors" />
+                                        <label className="block text-[11px] font-mono text-slate-500 mb-1 tracking-wider">Your Email *</label>
+                                        <input
+                                            type="email"
+                                            placeholder="Enter your email"
+                                            value={formData.email}
+                                            onChange={(e) => handleInputChange('email', e.target.value)}
+                                            className={`w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none transition-colors ${
+                                                fieldErrors.email
+                                                    ? 'border-rose-500 ring-1 ring-rose-500/30'
+                                                    : 'border-black/10 dark:border-white/[0.08] focus:border-indigo-500/60'
+                                            }`}
+                                        />
+                                        {fieldErrors.email && (
+                                            <span className="text-[10px] text-rose-500 dark:text-rose-400 font-mono flex items-center gap-1 mt-1">
+                                                <AlertCircle className="w-3 h-3 shrink-0" />
+                                                {fieldErrors.email}
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                                 <div>
                                     <label className="block text-[11px] font-mono text-slate-500 mb-1 tracking-wider">Subject</label>
-                                    <input type="text" required placeholder="What is this about?" value={formData.subject}
-                                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                        className="w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.08] px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/60 transition-colors" />
+                                    <input
+                                        type="text"
+                                        placeholder="What is this about? (optional)"
+                                        value={formData.subject}
+                                        onChange={(e) => handleInputChange('subject', e.target.value)}
+                                        className="w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.08] px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/60 transition-colors"
+                                    />
                                 </div>
                                 <div>
-                                    <label className="block text-[11px] font-mono text-slate-500 mb-1 tracking-wider">Message</label>
-                                    <textarea required rows={4} placeholder="Type your message here..." value={formData.message}
-                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        className="w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.08] px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/60 transition-colors resize-none" />
+                                    <label className="block text-[11px] font-mono text-slate-500 mb-1 tracking-wider">Message *</label>
+                                    <textarea
+                                        rows={4}
+                                        placeholder="Type your message here..."
+                                        value={formData.message}
+                                        onChange={(e) => handleInputChange('message', e.target.value)}
+                                        className={`w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none transition-colors resize-none ${
+                                            fieldErrors.message
+                                                ? 'border-rose-500 ring-1 ring-rose-500/30'
+                                                : 'border-black/10 dark:border-white/[0.08] focus:border-indigo-500/60'
+                                        }`}
+                                    />
+                                    {fieldErrors.message && (
+                                        <span className="text-[10px] text-rose-500 dark:text-rose-400 font-mono flex items-center gap-1 mt-1">
+                                            <AlertCircle className="w-3 h-3 shrink-0" />
+                                            {fieldErrors.message}
+                                        </span>
+                                    )}
                                 </div>
 
                                 {errorMessage && (
@@ -179,7 +268,7 @@ export const Contact: React.FC = () => {
                                         </span>
                                     )}
                                 </Button>
-                            </form>
+                            </motion.form>
                         )}
                     </div>
                 </ScrollReveal>
