@@ -8,7 +8,10 @@ export interface Project {
     category: ProjectCategory[];
     description: string;
     tech_stack: string[];
-    image: string;
+    image?: string;
+    image_light?: string;
+    image_dark?: string;
+    image_position?: 'object-top' | 'object-center' | 'object-bottom' | 'object-left' | 'object-left-top' | 'object-contain';
     featured: boolean;
     links: {
         web?: string;

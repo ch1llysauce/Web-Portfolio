@@ -240,9 +240,6 @@ export const Navbar: React.FC = () => {
 
                 {/* Drawer Footer / Resume Button */}
                 <div className="pt-6 border-t border-black/10 dark:border-white/5 space-y-3">
-                    <Button variant="primary" size="md" href="/resume.pdf" external className="w-full shadow-lg shadow-indigo-500/25">
-                        View Resume
-                    </Button>
                     <p className="text-[10px] font-mono text-center text-slate-500">
                         © 2026 Chilly • Portfolio
                     </p>

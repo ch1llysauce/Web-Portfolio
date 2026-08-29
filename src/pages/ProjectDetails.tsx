@@ -3,8 +3,10 @@ import { useParams, Link } from 'react-router-dom';
 import { projects } from '../data/projects';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
+import { useTheme } from '../context/ThemeContext';
 
 export const ProjectDetails: React.FC = () => {
+  const { theme } = useTheme();
   const { slug } = useParams<{ slug: string }>();
   const project = projects.find((p) => p.slug === slug || p.id === slug);
 
@@ -73,16 +75,27 @@ export const ProjectDetails: React.FC = () => {
       </div>
 
       {/* Hero / Media Banner */}
-      <div className="aspect-video w-full overflow-hidden rounded-3xl bg-black/5 dark:bg-[#161c2e] border border-black/10 dark:border-[#232d4b] shadow-2xl">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover object-top"
-          onError={(e) => {
-            (e.target as HTMLElement).style.display = 'none';
-          }}
-        />
-      </div>
+      {(() => {
+        const activeImage = theme === 'light'
+          ? (project.image_light || project.image || project.image_dark)
+          : (project.image_dark || project.image || project.image_light);
+
+        return (
+          <div className="aspect-video w-full overflow-hidden rounded-3xl bg-black/5 dark:bg-[#161c2e] border border-black/10 dark:border-[#232d4b] shadow-2xl">
+            {activeImage && (
+              <img
+                key={activeImage}
+                src={activeImage}
+                alt={project.title}
+                className={`w-full h-full ${project.image_position === 'object-contain' ? 'object-contain' : 'object-cover'} ${project.image_position === 'object-left-top' ? 'object-left-top' : project.image_position || 'object-center'}`}
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            )}
+          </div>
+        );
+      })()}
 
       {/* Tech Stack Breakdown */}
       <div className="rounded-2xl bg-white/95 dark:bg-[#0c0e1d]/70 border border-black/10 dark:border-white/[0.07] p-6 space-y-3 backdrop-blur-xl shadow-xl">

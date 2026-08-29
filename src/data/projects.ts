@@ -9,7 +9,9 @@ export const projects: Project[] = [
         category: ['mobile'],
         description: 'Centralized media automation and video processing application with background rendering capabilities.',
         tech_stack: ['Flutter', 'Dart', 'SQLite', 'FFmpeg'],
-        image: '',
+        image_light: '/projects/light/mediahub.png',
+        image_dark: '/projects/dark/mediahub.png',
+        image_position: 'object-top',
         featured: true,
         links: {
             apk: 'https://drive.google.com/file/d/1k7cTHZLA6vkplZBmgBYV5SX3F7rF7xIU/view?usp=sharing',
@@ -24,7 +26,9 @@ export const projects: Project[] = [
         category: ['ai', 'fullstack', 'mobile', 'web'],
         description: 'AI-Powered Mathematics learning platform with step-by-step problem solving, automated hints, and progress tracking.',
         tech_stack: ['React Native', 'Node.js', 'MongoDB', 'AI'],
-        image: '',
+        image_light: '/projects/light/mathmentor.png',
+        image_dark: '/projects/dark/mathmentor.png',
+        image_position: 'object-left-top',
         featured: true,
         links: {
             web: 'https://math-mentor--ai.vercel.app',
@@ -40,7 +44,9 @@ export const projects: Project[] = [
         category: ['web', 'fullstack'],
         description: 'Algorithm visualizer platform with step-by-step state animations and execution complexity analysis.',
         tech_stack: ['MERN', 'React', 'Charts'],
-        image: '',
+        image_light: '/projects/light/algoinsight.png',
+        image_dark: '/projects/dark/algoinsight.png',
+        image_position: 'object-left-top',
         featured: true,
         links: {
             web: 'https://algo-insight-client.vercel.app',
@@ -55,7 +61,9 @@ export const projects: Project[] = [
         category: ['mobile'],
         description: 'Cross-platform mobile habit tracking system with cloud sync and custom notifications.',
         tech_stack: ['React Native', 'Firebase'],
-        image: '',
+        image_light: '/projects/light/Habitsense.png',
+        image_dark:'/projects/dark/Habitsense.png',
+        image_position: 'object-top',
         featured: false,
         links: {
             apk: 'https://drive.google.com/file/d/1IIm8ba8LgaZFBSnNqLbyvyD5K2zq9PCr/view?usp=sharing',
@@ -70,7 +78,9 @@ export const projects: Project[] = [
         category: ['web', 'fullstack'],
         description: 'Property booking and room management system with real-time reservation analytics.',
         tech_stack: ['React.js', 'Firebase'],
-        image: '',
+        image_light: '/projects/light/hotelmanagementsystem.png',
+        image_dark: '/projects/dark/hotelmanagementsystem.png',
+        image_position: 'object-left-top',
         featured: false,
         links: {
             web: 'https://hotelmanagement-e654a.web.app/',
@@ -85,7 +95,7 @@ export const projects: Project[] = [
         category: ['web'],
         description: 'Interactive 2D physics engine simulating rigid body dynamics, gravity, and collisions.',
         tech_stack: ['HTML', 'CSS', 'JavaScript'],
-        image: '',
+        image_light: '/projects/light/2d-physics-simulator.png',
         featured: false,
         links: {
             web: 'https://2d-physics-engine.vercel.app',
@@ -100,7 +110,7 @@ export const projects: Project[] = [
         category: ['web'],
         description: 'A modern interactive website showcasing digital art collections and 3D web experiences.',
         tech_stack: ['React.js'],
-        image: '',
+        image_light: '/projects/light/art-gallery.png',
         featured: false,
         links: {
             web: 'https://art-gallery-git-main-chills-projects-b7be7ec3.vercel.app',

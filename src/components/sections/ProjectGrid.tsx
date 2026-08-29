@@ -4,6 +4,7 @@ import { projects } from '../../data/projects';
 import type { ProjectCategory } from '../../types/projects';
 import { ExternalLink, Download } from 'lucide-react';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { useTheme } from '../../context/ThemeContext';
 
 type FilterTab = 'all' | 'web' | 'mobile' | 'ai' | 'fullstack';
 
@@ -16,6 +17,7 @@ const filterTabs: { label: string; value: FilterTab }[] = [
 ];
 
 export const ProjectGrid: React.FC = () => {
+    const { theme } = useTheme();
     const [activeTab, setActiveTab] = useState<FilterTab>('all');
 
     const showcaseProjects = projects.filter((project) => {
@@ -59,25 +61,54 @@ export const ProjectGrid: React.FC = () => {
             {/* Showcase Grid with Scroll-Triggered Fade In & Fade Out Transitions */}
             <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                 <AnimatePresence mode="popLayout">
-                    {showcaseProjects.map((project) => (
-                        <motion.div
-                            key={project.id}
-                            layout
-                            initial={{ opacity: 0, y: 30, scale: 0.96 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: false, amount: 0.12 }}
-                            exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.2 } }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                            className="h-full"
-                        >
-                            <div className="group relative flex flex-col justify-between rounded-2xl bg-white/95 dark:bg-[#0c0e1d]/70 border border-black/10 dark:border-white/[0.07] p-3.5 transition-all duration-300 hover:border-indigo-500 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 backdrop-blur-xl h-full shadow-md dark:shadow-xl">
-                                <div className="space-y-2.5">
-                                    {/* Icon Box */}
-                                    <div className="h-20 w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.07] flex items-center justify-center p-2 overflow-hidden group-hover:border-indigo-500/25 transition-colors">
-                                        <div className="w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono font-bold text-sm group-hover:scale-110 transition-transform">
-                                            &lt;/&gt;
-                                        </div>
-                                    </div>
+                    {showcaseProjects.map((project) => {
+                        const activeImage = theme === 'light'
+                            ? (project.image_light || project.image || project.image_dark)
+                            : (project.image_dark || project.image || project.image_light);
+
+                        return (
+                            <motion.div
+                                key={project.id}
+                                layout
+                                initial={{ opacity: 0, y: 30, scale: 0.96 }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                viewport={{ once: false, amount: 0.12 }}
+                                exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.2 } }}
+                                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                className="h-full"
+                            >
+                                <div className="group relative flex flex-col justify-between rounded-2xl bg-white/95 dark:bg-[#0c0e1d]/70 border border-black/10 dark:border-white/[0.07] p-3.5 transition-all duration-300 hover:border-indigo-500 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 backdrop-blur-xl h-full shadow-md dark:shadow-xl">
+                                    <div className="space-y-2.5">
+                                        {/* Thumbnail Preview Area — Clickable to open live project */}
+                                        {(() => {
+                                            const mainLink = project.links.web || project.links.apk || project.links.github;
+                                            const ContainerTag = mainLink ? 'a' : 'div';
+                                            const linkProps = mainLink ? { href: mainLink, target: '_blank', rel: 'noreferrer', title: `Open ${project.title}` } : {};
+
+                                            return (
+                                                <ContainerTag
+                                                    {...linkProps}
+                                                    className="block relative aspect-video w-full rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.07] flex items-center justify-center overflow-hidden cursor-pointer group-hover:border-indigo-500/40 transition-colors"
+                                                >
+                                                    {activeImage ? (
+                                                        <img
+                                                            key={activeImage}
+                                                            src={activeImage}
+                                                            alt={project.title}
+                                                            className={`w-full h-full rounded-lg ${project.image_position === 'object-contain' ? 'object-contain' : 'object-cover'} ${project.image_position === 'object-left-top' ? 'object-left-top' : project.image_position || 'object-center'} group-hover:scale-105 transition-transform duration-500`}
+                                                            onError={(e) => {
+                                                                (e.target as HTMLElement).style.display = 'none';
+                                                                const fallback = (e.target as HTMLElement).nextElementSibling;
+                                                                if (fallback) fallback.classList.remove('hidden');
+                                                            }}
+                                                        />
+                                                    ) : null}
+                                                    <div className={`${activeImage ? 'hidden' : 'flex'} w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 items-center justify-center text-indigo-600 dark:text-indigo-400 font-mono font-bold text-sm group-hover:scale-110 transition-transform`}>
+                                                        &lt;/&gt;
+                                                    </div>
+                                                </ContainerTag>
+                                            );
+                                        })()}
 
                                     {/* Title & Tech */}
                                     <div>
@@ -110,10 +141,10 @@ export const ProjectGrid: React.FC = () => {
                                 </div>
                             </div>
                         </motion.div>
-                    ))}
+                    );
+                })}
                 </AnimatePresence>
             </motion.div>
         </section>
     );
 };
-

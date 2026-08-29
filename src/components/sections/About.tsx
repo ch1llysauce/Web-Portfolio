@@ -17,9 +17,9 @@ export const About: React.FC = () => {
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3.5 sm:gap-5">
                         {/* Avatar photo */}
                         <div className="relative shrink-0 flex flex-col items-center">
-                            <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-[#141a33] border-2 border-black/10 dark:border-white/10 shadow-lg flex items-center justify-center">
+                            <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-[#a9a9ac] dark:border-[#292929] shadow-lg flex items-center justify-center">
                                 <img
-                                    src="/profile.jpg"
+                                    src="/public/2x2.png"
                                     alt="Profile"
                                     className="w-full h-full object-cover"
                                     onError={(e) => {

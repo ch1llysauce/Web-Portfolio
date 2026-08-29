@@ -45,7 +45,7 @@ export const TechStack: React.FC = () => {
             badges: [
                 { name: 'React Native', color: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-500/10 border-cyan-500/20', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
                 { name: 'Flutter', color: 'text-sky-600 dark:text-sky-400', bg: 'bg-sky-500/10 border-sky-500/20', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg' },
-                { name: 'Expo', color: 'text-slate-700 dark:text-gray-400', bg: 'bg-blue-500/10 border-blue-300/20', iconUrl: 'https://www.vectorlogo.zone/logos/expoio/expoio-icon.svg' },
+                { name: 'Expo', color: 'text-blue-700 dark:text-blue-400', bg: 'bg-blue-500/10 border-blue-300/20', iconUrl: 'https://www.vectorlogo.zone/logos/expoio/expoio-icon.svg' },
             ],
             description: 'React Native, Expo, Flutter',
         },

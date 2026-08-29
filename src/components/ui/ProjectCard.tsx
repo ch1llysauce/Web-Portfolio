@@ -2,14 +2,21 @@ import React from 'react';
 import type { Project } from '../../types/projects';
 import { Button } from './Button';
 import { ExternalLink, Download, Smartphone, Monitor } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 interface ProjectCardProps {
     project: Project;
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+    const { theme } = useTheme();
     const categoryTag = project.tagline || project.category.join(' • ').toUpperCase();
     const isMobile = project.category.includes('mobile');
+
+    // Theme-aware image selection
+    const activeImage = theme === 'light'
+        ? (project.image_light || project.image || project.image_dark)
+        : (project.image_dark || project.image || project.image_light);
 
     return (
         <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white/95 dark:bg-[#0c0e1d]/70 border border-black/10 dark:border-white/[0.08] p-3.5 sm:p-5 transition-all duration-300 hover:border-indigo-500 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 backdrop-blur-xl shadow-lg dark:shadow-xl">
@@ -21,43 +28,55 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                     </span>
                 </div>
 
-                {/* Thumbnail Preview Area — Compact Sleek Banner on mobile */}
-                <div className="relative h-36 sm:h-44 md:aspect-video w-full overflow-hidden rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/10 dark:border-white/[0.08] flex items-center justify-center group-hover:border-indigo-500/30 transition-colors">
-                    {project.image ? (
-                        <img
-                            src={project.image}
-                            alt={project.title}
-                            className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                            onError={(e) => {
-                                (e.target as HTMLElement).style.display = 'none';
-                                const fallback = (e.target as HTMLElement).nextElementSibling;
-                                if (fallback) fallback.classList.remove('hidden');
-                            }}
-                        />
-                    ) : null}
+                {/* Thumbnail Preview Area — Clickable to open live website */}
+                {(() => {
+                    const mainLink = project.links.web || project.links.apk || project.links.github;
+                    const ContainerTag = mainLink ? 'a' : 'div';
+                    const linkProps = mainLink ? { href: mainLink, target: '_blank', rel: 'noreferrer', title: `Open ${project.title}` } : {};
 
-                    {/* Styled Fallback UI Mockup Preview */}
-                    <div className={`${project.image ? 'hidden' : ''} flex flex-col items-center justify-center text-center p-3 sm:p-4 w-full h-full bg-gradient-to-b from-indigo-950/20 to-black/30 dark:from-indigo-950/40 dark:to-black/60`}>
-                        <div className="w-full max-w-[150px] sm:max-w-[180px] h-20 sm:h-24 rounded-lg bg-white dark:bg-[#070913]/90 border border-black/10 dark:border-white/10 p-2 flex flex-col justify-between shadow-inner">
-                            <div className="flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-1">
-                                <div className="flex items-center gap-1">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
-                                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    return (
+                        <ContainerTag
+                            {...linkProps}
+                            className="block relative h-36 sm:h-44 md:aspect-video w-full overflow-hidden rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/10 dark:border-white/[0.08] flex items-center justify-center cursor-pointer group-hover:border-indigo-500/40 transition-all duration-300"
+                        >
+                            {activeImage ? (
+                                <img
+                                    key={activeImage}
+                                    src={activeImage}
+                                    alt={project.title}
+                                    className={`h-full w-full rounded-lg ${project.image_position === 'object-contain' ? 'object-contain' : 'object-cover'} ${project.image_position === 'object-left-top' ? 'object-left-top' : project.image_position || 'object-center'} transition-transform duration-500 group-hover:scale-105`}
+                                    onError={(e) => {
+                                        (e.target as HTMLElement).style.display = 'none';
+                                        const fallback = (e.target as HTMLElement).nextElementSibling;
+                                        if (fallback) fallback.classList.remove('hidden');
+                                    }}
+                                />
+                            ) : null}
+
+                            {/* Styled Fallback UI Mockup Preview */}
+                            <div className={`${activeImage ? 'hidden' : ''} flex flex-col items-center justify-center text-center p-3 sm:p-4 w-full h-full bg-gradient-to-b from-indigo-950/20 to-black/30 dark:from-indigo-950/40 dark:to-black/60`}>
+                                <div className="w-full max-w-[150px] sm:max-w-[180px] h-20 sm:h-24 rounded-lg bg-white dark:bg-[#070913]/90 border border-black/10 dark:border-white/10 p-2 flex flex-col justify-between shadow-inner">
+                                    <div className="flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-1">
+                                        <div className="flex items-center gap-1">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+                                            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                        </div>
+                                        {isMobile ? <Smartphone className="w-3 h-3 text-indigo-500 dark:text-indigo-400" /> : <Monitor className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />}
+                                    </div>
+                                    <div className="space-y-1 my-auto">
+                                        <div className="h-1.5 bg-indigo-500/30 rounded w-3/4 mx-auto" />
+                                        <div className="h-1.5 bg-slate-500/30 rounded w-1/2 mx-auto" />
+                                    </div>
+                                    <div className="h-2 bg-indigo-600/30 dark:bg-indigo-600/40 rounded w-full flex items-center justify-center">
+                                        <span className="text-[7px] text-indigo-600 dark:text-indigo-300 font-mono font-medium">UI Preview</span>
+                                    </div>
                                 </div>
-                                {isMobile ? <Smartphone className="w-3 h-3 text-indigo-500 dark:text-indigo-400" /> : <Monitor className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />}
                             </div>
-                            <div className="space-y-1 my-auto">
-                                <div className="h-1.5 bg-indigo-500/30 rounded w-3/4 mx-auto" />
-                                <div className="h-1.5 bg-slate-500/30 rounded w-1/2 mx-auto" />
-                            </div>
-                            <div className="h-2 bg-indigo-600/30 dark:bg-indigo-600/40 rounded w-full flex items-center justify-center">
-                                <span className="text-[7px] text-indigo-600 dark:text-indigo-300 font-mono font-medium">UI Preview</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                        </ContainerTag>
+                    );
+                })()}
+                
                 {/* Info */}
                 <div className="space-y-1.5 sm:space-y-2">
                     <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-300 transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
