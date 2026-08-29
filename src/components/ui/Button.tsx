@@ -17,17 +17,16 @@ export const Button: React.FC<ButtonProps> = ({
     ...props
 }) => {
     // Base styles
-    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 focus:outline-none';
+    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 focus:outline-none select-none cursor-pointer';
 
     // Variants
     const variants = {
-        // Glowing gradient button ("View Projects", "Send Message")
-        primary: 'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:opacity-95 active:scale-95',
-        // Dark outline button ("GitHub", card action buttons)
-        secondary: 'bg-[#121629] text-slate-200 border border-[#222846] hover:bg-[#1a203a] hover:border-slate-500 active:scale-95',
-        outline: 'bg-[#121629] text-slate-200 border border-[#222846] hover:bg-[#1a203a] hover:border-slate-500 active:scale-95',
+        // Glowing gradient button ("View Projects", "Send Message", "View Resume")
+        primary: 'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 !text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:opacity-95 active:scale-95',
+        // Outline button
+        outline: 'bg-black/[0.02] dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border border-black/10 dark:border-white/[0.1] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] hover:border-indigo-500/40 active:scale-95',
         // Subtle button
-        ghost: 'text-slate-300 hover:text-white hover:bg-slate-800/40',
+        ghost: 'text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white hover:bg-black/[0.05] dark:hover:bg-white/5',
     };
 
     // Sizes
@@ -58,4 +57,5 @@ export const Button: React.FC<ButtonProps> = ({
             {children}
         </button>
     );
-}
+};
+

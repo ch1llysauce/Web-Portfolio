@@ -6,6 +6,7 @@ import { TechStack } from '../components/sections/TechStack';
 import { FeaturedProjects } from '../components/sections/FeaturedProjects';
 import { Journey } from '../components/sections/Journey';
 import { Contact } from '../components/sections/Contact';
+import { ScrollReveal } from '../components/ui/ScrollReveal';
 
 export const Home: React.FC = () => {
   const location = useLocation();
@@ -13,11 +14,26 @@ export const Home: React.FC = () => {
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '');
+      if (id === 'hero') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.history.replaceState(null, '', '/');
+        return;
+      }
+
       const element = document.getElementById(id);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+          let yOffset = -90; // Default navbar offset
+
+          if (id === 'journey') {
+            const elementHeight = element.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            yOffset = -Math.max(80, (viewportHeight - elementHeight) / 2);
+          }
+
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }, 150);
       }
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -25,11 +41,14 @@ export const Home: React.FC = () => {
   }, [location]);
 
   return (
-    <div className="space-y-20 pb-16">
-      <Hero />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-        {/* Section 2 ABOUT ME & Section 3 TECH STACK side by side */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+    <div className="space-y-6 md:space-y-8 pb-4 md:pb-6">
+      <ScrollReveal>
+        <Hero />
+      </ScrollReveal>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 md:space-y-10">
+        {/* Section 2 ABOUT ME & Section 3 TECH STACK side-by-side */}
+        <div id="about" className="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           <div className="lg:col-span-5 h-full">
             <About />
           </div>

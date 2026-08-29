@@ -21,7 +21,7 @@ export const projects: Project[] = [
         slug: 'mathmentor-ai',
         title: 'MathMentor AI',
         tagline: 'AI • FULL-STACK',
-        category: ['ai', 'fullstack', 'mobile'],
+        category: ['ai', 'fullstack', 'mobile', 'web'],
         description: 'AI-Powered Mathematics learning platform with step-by-step problem solving, automated hints, and progress tracking.',
         tech_stack: ['React Native', 'Node.js', 'MongoDB', 'AI'],
         image: '',
@@ -48,18 +48,18 @@ export const projects: Project[] = [
         }
     },
     {
-        id: 'art-gallery',
-        slug: 'art-gallery',
-        title: 'Art Gallery',
-        tagline: 'WEB • FRONTEND',
-        category: ['web'],
-        description: 'A modern interactive website showcasing digital art collections and 3D web experiences.',
-        tech_stack: ['React.js'],
+        id: 'habitsense',
+        slug: 'habitsense',
+        title: 'HabitSense',
+        tagline: 'MOBILE • REACT NATIVE',
+        category: ['mobile'],
+        description: 'Cross-platform mobile habit tracking system with cloud sync and custom notifications.',
+        tech_stack: ['React Native', 'Firebase'],
         image: '',
         featured: false,
         links: {
-            web: 'https://art-gallery-git-main-chills-projects-b7be7ec3.vercel.app',
-            github: 'https://github.com/ch1llysauce/Art-Gallery.git'
+            apk: 'https://drive.google.com/file/d/1IIm8ba8LgaZFBSnNqLbyvyD5K2zq9PCr/view?usp=sharing',
+            github: 'https://github.com/ch1llysauce/HabitSense.git'
         }
     },
     {
@@ -78,35 +78,6 @@ export const projects: Project[] = [
         }
     },
     {
-        id: 'habitsense-v1',
-        slug: 'habitsense-v1',
-        title: 'HabitSense V1',
-        tagline: 'WEB • PYTHON',
-        category: ['web', 'others'],
-        description: 'Intelligent habit tracking assistant analyzing streak data and routine consistency.',
-        tech_stack: ['React.js', 'Python'],
-        image: '',
-        featured: false,
-        links: {
-            github: 'https://github.com/ch1llysauce/HabitSense.git'
-        }
-    },
-    {
-        id: 'habitsense-v2',
-        slug: 'habitsense-v2',
-        title: 'HabitSense V2',
-        tagline: 'MOBILE • REACT NATIVE',
-        category: ['mobile'],
-        description: 'Cross-platform mobile habit tracking system with cloud sync and custom notifications.',
-        tech_stack: ['React Native', 'Firebase'],
-        image: '',
-        featured: false,
-        links: {
-            apk: 'https://drive.google.com/file/d/1IIm8ba8LgaZFBSnNqLbyvyD5K2zq9PCr/view?usp=sharing',
-            github: 'https://github.com/ch1llysauce/HabitSense.git'
-        }
-    },
-    {
         id: 'physics-sim',
         slug: '2d-physics',
         title: '2D Physics Simulator',
@@ -122,31 +93,18 @@ export const projects: Project[] = [
         }
     },
     {
-        id: 'compound-java',
-        slug: 'compound-interest-java',
-        title: 'Compound Interest Calculator (Java)',
-        tagline: 'DESKTOP • JAVA',
-        category: ['others'],
-        description: 'Financial investment growth calculator with annual compounding tables and charts.',
-        tech_stack: ['Java Swing'],
+        id: 'art-gallery',
+        slug: 'art-gallery',
+        title: 'Art Gallery',
+        tagline: 'WEB • FRONTEND',
+        category: ['web'],
+        description: 'A modern interactive website showcasing digital art collections and 3D web experiences.',
+        tech_stack: ['React.js'],
         image: '',
         featured: false,
         links: {
-            github: 'https://github.com/ch1llysauce'
+            web: 'https://art-gallery-git-main-chills-projects-b7be7ec3.vercel.app',
+            github: 'https://github.com/ch1llysauce/Art-Gallery.git'
         }
     },
-    {
-        id: 'compound-cpp',
-        slug: 'compound-interest-cpp',
-        title: 'Compound Interest Calculator (C++)',
-        tagline: 'SYSTEMS • C++',
-        category: ['others'],
-        description: 'High performance CLI financial utility computing logarithmic interest curves.',
-        tech_stack: ['C++ Terminal'],
-        image: '',
-        featured: false,
-        links: {
-            github: 'https://github.com/ch1llysauce'
-        }
-    }
 ];

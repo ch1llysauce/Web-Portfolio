@@ -4,10 +4,10 @@ export const journeyMilestones: Milestone[] = [
     {
         id: 'cpp-foundations',
         year: 'Step 1',
-        title: 'C++ / C#',
+        title: 'C++ / Java',
         subtitle: 'Foundations',
         description: 'Programming basics and OOP projects',
-        tech_stack: ['C++', 'C#', 'OOP']
+        tech_stack: ['C++', 'Java', 'OOP']
     },
     {
         id: 'web-dev-basics',
@@ -44,10 +44,10 @@ export const journeyMilestones: Milestone[] = [
     {
         id: 'ai-fullstack-era',
         year: 'Step 6',
-        title: 'AI + Full-Stack',
-        subtitle: 'Intelligence',
-        description: 'Intelligence and smart systems',
-        tech_stack: ['AI Integrations', 'LLMs', 'Groq']
+        title: 'AI & LLMs',
+        subtitle: 'Smart Systems',
+        description: 'LLM integrations, AI APIs, and automation',
+        tech_stack: ['Groq API', 'LLMs', 'Prompt Eng']
     },
     {
         id: 'flutter-systems-era',

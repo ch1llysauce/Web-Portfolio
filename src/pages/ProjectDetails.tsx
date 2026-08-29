@@ -11,11 +11,11 @@ export const ProjectDetails: React.FC = () => {
   if (!project) {
     return (
       <div className="max-w-4xl mx-auto px-4 pt-40 pb-20 text-center space-y-4">
-        <h1 className="text-2xl font-bold text-white">Project Not Found</h1>
-        <p className="text-slate-400 text-sm">The project you are looking for does not exist or has been moved.</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Project Not Found</h1>
+        <p className="text-slate-600 dark:text-slate-400 text-sm">The project you are looking for does not exist or has been moved.</p>
         <Link to="/projects">
           <Button variant="primary" size="md">
-            ← Back to All Projects
+            Back to All Projects
           </Button>
         </Link>
       </div>
@@ -28,9 +28,9 @@ export const ProjectDetails: React.FC = () => {
       <div>
         <Link
           to="/projects"
-          className="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
         >
-          ← Back to Projects
+          Back to Projects
         </Link>
       </div>
 
@@ -44,11 +44,11 @@ export const ProjectDetails: React.FC = () => {
           ))}
         </div>
 
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           {project.title}
         </h1>
 
-        <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
           {project.description}
         </p>
 
@@ -56,24 +56,24 @@ export const ProjectDetails: React.FC = () => {
         <div className="flex flex-wrap items-center gap-3 pt-2">
           {project.links.web && (
             <Button variant="primary" size="md" href={project.links.web} external>
-              Live Demo ↗
+              Live Demo
             </Button>
           )}
           {project.links.apk && (
             <Button variant="primary" size="md" href={project.links.apk} external>
-              Download APK ⤓
+              Download APK
             </Button>
           )}
           {project.links.github && (
             <Button variant="primary" size="md" href={project.links.github} external>
-              Source Code ↗
+              Source Code
             </Button>
           )}
         </div>
       </div>
 
       {/* Hero / Media Banner */}
-      <div className="aspect-video w-full overflow-hidden rounded-3xl bg-[#161c2e] border border-[#232d4b] shadow-2xl">
+      <div className="aspect-video w-full overflow-hidden rounded-3xl bg-black/5 dark:bg-[#161c2e] border border-black/10 dark:border-[#232d4b] shadow-2xl">
         <img
           src={project.image}
           alt={project.title}
@@ -85,8 +85,8 @@ export const ProjectDetails: React.FC = () => {
       </div>
 
       {/* Tech Stack Breakdown */}
-      <div className="rounded-2xl bg-[#0e1322] border border-[#1e263d] p-6 space-y-3">
-        <h2 className="text-xs font-mono uppercase tracking-wider text-slate-400">
+      <div className="rounded-2xl bg-white/95 dark:bg-[#0c0e1d]/70 border border-black/10 dark:border-white/[0.07] p-6 space-y-3 backdrop-blur-xl shadow-xl">
+        <h2 className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
           Technologies & Tools Used
         </h2>
         <div className="flex flex-wrap gap-2 pt-1">

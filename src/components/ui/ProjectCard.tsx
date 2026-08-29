@@ -8,23 +8,21 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
-    // Format category string like "AI • FULL-STACK"
     const categoryTag = project.tagline || project.category.join(' • ').toUpperCase();
-
     const isMobile = project.category.includes('mobile');
 
     return (
-        <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-[#0c0e1d] border border-[#1b223d] p-5 transition-all duration-300 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1">
-            <div className="space-y-4">
+        <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white/95 dark:bg-[#0c0e1d]/70 border border-black/10 dark:border-white/[0.08] p-3.5 sm:p-5 transition-all duration-300 hover:border-indigo-500 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 backdrop-blur-xl shadow-lg dark:shadow-xl">
+            <div className="space-y-3 sm:space-y-4">
                 {/* Category Header Badge */}
                 <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-semibold tracking-wider uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold tracking-wider uppercase bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
                         {categoryTag}
                     </span>
                 </div>
 
-                {/* Thumbnail Preview Area */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-[#12162b] border border-[#202747] flex items-center justify-center group-hover:border-indigo-500/30 transition-colors">
+                {/* Thumbnail Preview Area — Compact Sleek Banner on mobile */}
+                <div className="relative h-36 sm:h-44 md:aspect-video w-full overflow-hidden rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/10 dark:border-white/[0.08] flex items-center justify-center group-hover:border-indigo-500/30 transition-colors">
                     {project.image ? (
                         <img
                             src={project.image}
@@ -39,43 +37,43 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                     ) : null}
 
                     {/* Styled Fallback UI Mockup Preview */}
-                    <div className={`${project.image ? 'hidden' : ''} flex flex-col items-center justify-center text-center p-4 w-full h-full bg-gradient-to-b from-[#141a33] to-[#0c0e1d]`}>
-                        <div className="w-full max-w-[180px] h-24 rounded-lg bg-[#070913] border border-[#202747] p-2 flex flex-col justify-between shadow-inner">
-                            <div className="flex items-center justify-between border-b border-[#181f38] pb-1">
+                    <div className={`${project.image ? 'hidden' : ''} flex flex-col items-center justify-center text-center p-3 sm:p-4 w-full h-full bg-gradient-to-b from-indigo-950/20 to-black/30 dark:from-indigo-950/40 dark:to-black/60`}>
+                        <div className="w-full max-w-[150px] sm:max-w-[180px] h-20 sm:h-24 rounded-lg bg-white dark:bg-[#070913]/90 border border-black/10 dark:border-white/10 p-2 flex flex-col justify-between shadow-inner">
+                            <div className="flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-1">
                                 <div className="flex items-center gap-1">
                                     <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
                                     <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                                 </div>
-                                {isMobile ? <Smartphone className="w-3 h-3 text-indigo-400" /> : <Monitor className="w-3 h-3 text-indigo-400" />}
+                                {isMobile ? <Smartphone className="w-3 h-3 text-indigo-500 dark:text-indigo-400" /> : <Monitor className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />}
                             </div>
                             <div className="space-y-1 my-auto">
                                 <div className="h-1.5 bg-indigo-500/30 rounded w-3/4 mx-auto" />
-                                <div className="h-1.5 bg-slate-700/50 rounded w-1/2 mx-auto" />
+                                <div className="h-1.5 bg-slate-500/30 rounded w-1/2 mx-auto" />
                             </div>
-                            <div className="h-2 bg-indigo-600/40 rounded w-full flex items-center justify-center">
-                                <span className="text-[7px] text-indigo-300 font-mono">UI Preview</span>
+                            <div className="h-2 bg-indigo-600/30 dark:bg-indigo-600/40 rounded w-full flex items-center justify-center">
+                                <span className="text-[7px] text-indigo-600 dark:text-indigo-300 font-mono font-medium">UI Preview</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Info */}
-                <div className="space-y-2">
-                    <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
+                <div className="space-y-1.5 sm:space-y-2">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-300 transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
                         {project.title}
                     </h3>
-                    <p className="text-xs text-slate-400 line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 sm:line-clamp-3 leading-relaxed">
                         {project.description}
                     </p>
                 </div>
 
                 {/* Tech Stack Chips */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
+                <div className="flex flex-wrap gap-1.5 pt-0.5">
                     {project.tech_stack.map((tech) => (
                         <span
                             key={tech}
-                            className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#14182e] text-slate-300 border border-[#202747]"
+                            className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[9px] sm:text-[10px] font-mono bg-black/5 dark:bg-white/[0.04] text-slate-600 dark:text-slate-300 border border-black/10 dark:border-white/[0.08] font-medium"
                         >
                             {tech}
                         </span>
@@ -84,7 +82,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             </div>
 
             {/* Action Links */}
-            <div className="flex items-center gap-2 pt-4 border-t border-[#181f38] mt-4">
+            <div className="flex items-center gap-2 pt-3 sm:pt-4 border-t border-black/10 dark:border-white/[0.06] mt-3 sm:mt-4">
                 {project.links.web && (
                     <Button variant="outline" size="sm" href={project.links.web} external className="flex-1 text-xs">
                         <ExternalLink className="w-3 h-3 mr-1" />
