@@ -13,6 +13,22 @@ export const Navbar: React.FC = () => {
     const isHome = location.pathname === '/';
     const isProjectsPage = location.pathname.startsWith('/projects');
 
+    // Lock body scroll when mobile drawer is open to prevent background scrolling
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.touchAction = 'none';
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.touchAction = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.touchAction = '';
+        };
+    }, [isOpen]);
+
     const navLinks = [
         { label: 'Home', href: '#hero', id: 'hero' },
         { label: 'About', href: '#about', id: 'about' },
@@ -183,22 +199,21 @@ export const Navbar: React.FC = () => {
         <div className={`fixed inset-0 z-[100] md:hidden transition-all duration-300 ${isOpen ? 'visible opacity-100' : 'invisible opacity-0 pointer-events-none'}`}>
             {/* Blurred Backdrop Overlay */}
             <div
-                className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-sm transition-opacity"
+                className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-sm transition-opacity touch-none"
                 onClick={() => setIsOpen(false)}
             />
 
             {/* Slide-out Drawer Panel (Full Screen Height, Solid Opaque) */}
             <div
-                className={`fixed top-0 right-0 bottom-0 h-screen w-[280px] sm:w-[320px] bg-slate-50 dark:bg-[#0c0e1d] border-l border-black/10 dark:border-white/10 shadow-2xl p-6 flex flex-col justify-between transition-transform duration-300 ease-out z-[101] ${
+                className={`fixed top-0 right-0 bottom-0 h-screen w-[280px] sm:w-[320px] bg-slate-50 dark:bg-[#0c0e1d] border-l border-black/10 dark:border-white/10 shadow-2xl p-6 flex flex-col justify-between transition-transform duration-300 ease-out z-[101] overscroll-contain ${
                     isOpen ? 'translate-x-0' : 'translate-x-full'
                 }`}
             >
                 {/* Drawer Header */}
                 <div>
                     <div className="flex items-center justify-between pb-6 border-b border-black/10 dark:border-white/5">
-                        <div className="flex items-center gap-1.5" style={{ fontFamily: "'Fira Code', monospace" }}>
-                            <span className="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent font-bold text-lg">&lt;/&gt;</span>
-                            <span className="text-slate-900 dark:text-white font-bold text-sm tracking-widest uppercase" style={{ fontFamily: "'Urbanist', sans-serif" }}>Chilly</span>
+                        <div className="flex items-center">
+                            <LogoMark />
                         </div>
                         <button
                             onClick={() => setIsOpen(false)}
@@ -226,7 +241,7 @@ export const Navbar: React.FC = () => {
                                     className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all select-none ${
                                         isActive
                                             ? 'bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 font-bold border border-indigo-500/20 shadow-sm'
-                                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                                             : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
                                     }`}
                                     style={{ fontFamily: "'Inter', sans-serif" }}
                                 >
@@ -239,7 +254,16 @@ export const Navbar: React.FC = () => {
                 </div>
 
                 {/* Drawer Footer / Resume Button */}
-                <div className="pt-6 border-t border-black/10 dark:border-white/5 space-y-3">
+                <div className="pt-6 border-t border-black/10 dark:border-white/5 space-y-4">
+                    <Button
+                        variant="primary"
+                        size="md"
+                        href="/resume.pdf"
+                        external
+                        className="w-full justify-center text-center shadow-md shadow-indigo-500/25 py-2.5"
+                    >
+                        View Resume
+                    </Button>
                     <p className="text-[10px] font-mono text-center text-slate-500">
                         © 2026 Chilly • Portfolio
                     </p>

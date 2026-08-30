@@ -19,7 +19,7 @@ export const LogoMark: React.FC<{ className?: string; showWordmark?: boolean }> 
 
     return (
         <div className={`flex items-center gap-2 select-none pointer-events-none bg-transparent [-webkit-tap-highlight-color:transparent] [-webkit-user-select:none] ${className}`}>
-            <svg width="54" height="28" viewBox="0 0 152 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="overflow-visible flex-shrink-0">
+            <svg width="56" height="28" viewBox="0 0 168 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="overflow-visible flex-shrink-0">
                 <defs>
                     <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
                         {isDark ? (
@@ -53,13 +53,13 @@ export const LogoMark: React.FC<{ className?: string; showWordmark?: boolean }> 
                 </defs>
 
                 <g filter={`url(#${filterId})`}>
-                    <text x="2" y="58" fontFamily="'Fira Code', monospace" fontWeight="700" fontSize="48" fill={`url(#${gradientId})`}>
+                    <text x="10" y="56" fontFamily="'Fira Code', monospace" fontWeight="700" fontSize="48" fill={`url(#${gradientId})`}>
                         {'<'}
                     </text>
-                    <text x="42" y="62" fontFamily="'Urbanist', sans-serif" fontWeight="900" fontSize="56" fill={`url(#${gradientId})`}>
+                    <text x="54" y="60" fontFamily="'Urbanist', sans-serif" fontWeight="900" fontSize="56" fill={`url(#${gradientId})`}>
                         C
                     </text>
-                    <text x="100" y="58" fontFamily="'Fira Code', monospace" fontWeight="700" fontSize="48" fill={`url(#${gradientId})`}>
+                    <text x="108" y="56" fontFamily="'Fira Code', monospace" fontWeight="700" fontSize="48" fill={`url(#${gradientId})`}>
                         {'/>'}
                     </text>
                 </g>

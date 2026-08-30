@@ -7,7 +7,7 @@
     </linearGradient>
 
     <filter id="chilly-glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feGaussianBlur stdDeviation="10" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
@@ -18,19 +18,24 @@
       .bracket {
         font-family: 'Fira Code', 'Courier New', monospace;
         font-weight: 700;
-        font-size: 116px;
+        font-size: 112px;
       }
       .letter {
         font-family: 'Urbanist', system-ui, -apple-system, sans-serif;
         font-weight: 900;
-        font-size: 136px;
+        font-size: 132px;
       }
     </style>
   </defs>
 
+  <!-- Background for PWA / App Icon -->
+  <rect width="512" height="512" fill="#070913" />
+
+  <!-- Centered & Glow Filtered Logo Mark -->
   <g filter="url(#chilly-glow)" fill="url(#chilly-grad)">
-    <text x="78" y="294" class="bracket">&lt;</text>
-    <text x="208" y="300" class="letter">C</text>
-    <text x="344" y="294" class="bracket">/&gt;</text>
+    <text x="82" y="292" class="bracket">&lt;</text>
+    <text x="210" y="298" class="letter">C</text>
+    <text x="344" y="292" class="bracket">/&gt;</text>
   </g>
 </svg>
+
