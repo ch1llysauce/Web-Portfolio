@@ -113,7 +113,7 @@ export const projects: Project[] = [
         image_light: '/projects/light/art-gallery.png',
         featured: false,
         links: {
-            web: 'https://art-gallery-git-main-chills-projects-b7be7ec3.vercel.app',
+            web: 'https://chilly-art-gallery.vercel.app',
             github: 'https://github.com/ch1llysauce/Art-Gallery.git'
         }
     },
