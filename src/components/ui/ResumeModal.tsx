@@ -78,7 +78,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                 </div>
                                 <div className="min-w-0">
                                     <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-wide truncate" style={{ fontFamily: "'Urbanist', sans-serif" }}>
-                                        Chilldon Paul Carreon — Resume
+                                        Chilldon Paul Carreon - Résumé
                                     </h3>
                                     <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 hidden sm:block">
                                         {fitMode === 'page' ? 'Fit Page Mode (No Scroll)' : 'Scroll & Zoom Mode'}
@@ -185,7 +185,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                 >
                                     <img
                                         src={previewImageUrl}
-                                        alt="Chilldon Paul Carreon — Official Resume Preview"
+                                        alt="Chilldon Paul Carreon - Official Résumé Preview"
                                         className="max-w-full max-h-full h-auto w-auto object-contain rounded-lg sm:rounded-xl shadow-2xl shadow-slate-900/20 dark:shadow-black/90 border border-slate-300 dark:border-slate-700/40 select-none bg-white cursor-pointer active:scale-98 transition-transform"
                                         loading="eager"
                                     />
@@ -207,7 +207,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                         >
                                             <img
                                                 src={previewImageUrl}
-                                                alt="Chilldon Paul Carreon — Official Resume Preview"
+                                                alt="Chilldon Paul Carreon - Official Résumé Preview"
                                                 className="w-full h-auto rounded-lg sm:rounded-xl shadow-2xl shadow-slate-900/20 dark:shadow-black/90 border border-slate-300 dark:border-slate-700/40 select-none bg-white"
                                                 loading="eager"
                                             />
