@@ -119,23 +119,23 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                     )}
                                 </button>
 
-                                {/* Zoom Controls (Desktop / Tablet only) */}
+                                {/* Zoom Controls (Mobile & Desktop) */}
                                 {fitMode === 'width' && (
-                                    <div className="hidden sm:flex items-center bg-white/5 border border-white/10 rounded-xl p-0.5 text-xs text-slate-300">
+                                    <div className="flex items-center bg-white/5 border border-white/10 rounded-xl p-0.5 text-xs text-slate-300">
                                         <button
                                             onClick={() => setZoom((prev) => Math.max(85, prev - 5))}
-                                            className="p-1.5 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                                            className="p-1 sm:p-1.5 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
                                             title="Zoom Out"
                                             aria-label="Zoom Out"
                                         >
                                             <ZoomOut className="w-3.5 h-3.5" />
                                         </button>
-                                        <span className="px-2 font-mono text-[11px] select-none text-slate-400 min-w-[40px] text-center">
+                                        <span className="px-1.5 sm:px-2 font-mono text-[10px] sm:text-[11px] select-none text-slate-400 min-w-[34px] sm:min-w-[40px] text-center">
                                             {zoom}%
                                         </span>
                                         <button
-                                            onClick={() => setZoom((prev) => Math.min(115, prev + 5))}
-                                            className="p-1.5 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                                            onClick={() => setZoom((prev) => Math.min(125, prev + 5))}
+                                            className="p-1 sm:p-1.5 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
                                             title="Zoom In"
                                             aria-label="Zoom In"
                                         >
@@ -191,25 +191,27 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                     />
                                 </div>
                             ) : (
-                                /* Scroll & Zoom Mode (Tap image to zoom back out to Fit Page) */
+                                /* Scroll & Zoom Mode (Proportional Smooth Relative Scaling) */
                                 <div
                                     className="transition-all duration-200 ease-out flex justify-center w-full shrink-0 cursor-pointer"
                                     onClick={() => setFitMode('page')}
                                     title="Tap image to fit page"
                                 >
-                                    <div
-                                        className="transition-all duration-200 ease-out"
-                                        style={{
-                                            width: `${(768 * zoom) / 100}px`,
-                                            maxWidth: zoom <= 100 ? '100%' : 'none',
-                                        }}
-                                    >
-                                        <img
-                                            src={previewImageUrl}
-                                            alt="Chilldon Paul Carreon — Official Resume Preview"
-                                            className="w-full h-auto rounded-lg sm:rounded-xl shadow-2xl shadow-black/90 border border-slate-700/40 select-none bg-white"
-                                            loading="eager"
-                                        />
+                                    <div className="w-full max-w-3xl flex justify-center">
+                                        <div
+                                            className="transition-all duration-200 ease-out"
+                                            style={{
+                                                width: `${zoom}%`,
+                                                minWidth: `${zoom}%`,
+                                            }}
+                                        >
+                                            <img
+                                                src={previewImageUrl}
+                                                alt="Chilldon Paul Carreon — Official Resume Preview"
+                                                className="w-full h-auto rounded-lg sm:rounded-xl shadow-2xl shadow-black/90 border border-slate-700/40 select-none bg-white"
+                                                loading="eager"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             )}
