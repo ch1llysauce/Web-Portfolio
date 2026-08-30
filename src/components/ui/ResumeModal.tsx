@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Download, ExternalLink, FileText, ZoomIn, ZoomOut, Maximize2, Minimize2 } from 'lucide-react';
 
@@ -19,13 +19,15 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 }) => {
     const [fitMode, setFitMode] = useState<'width' | 'page'>('page');
     const [zoom, setZoom] = useState<number>(100);
-    const [touchDist, setTouchDist] = useState<number | null>(null);
+    const [pinchScale, setPinchScale] = useState<number>(1);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     // Reset settings when modal opens
     useEffect(() => {
         if (isOpen) {
             setFitMode('page');
             setZoom(100);
+            setPinchScale(1);
         }
     }, [isOpen]);
 
@@ -48,39 +50,55 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
         };
     }, [isOpen, onClose]);
 
-    // Handle 2-finger pinch-to-zoom on touch devices (Mobile / Tablet)
-    const handleTouchStart = (e: React.TouchEvent) => {
-        if (e.touches.length === 2) {
-            const dist = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
-            setTouchDist(dist);
-        }
-    };
+    // Native non-passive touchmove event listener for true 2-finger mobile pinch zoom
+    useEffect(() => {
+        if (!isOpen) return;
 
-    const handleTouchMove = (e: React.TouchEvent) => {
-        if (e.touches.length === 2 && touchDist !== null) {
-            if (fitMode === 'page') {
-                setFitMode('width');
+        const el = containerRef.current;
+        if (!el) return;
+
+        let initialDist = 0;
+        let baseScale = pinchScale;
+
+        const onTouchStart = (e: TouchEvent) => {
+            if (e.touches.length === 2) {
+                initialDist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                baseScale = pinchScale;
             }
+        };
 
-            const newDist = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
-            const delta = newDist - touchDist;
-
-            if (Math.abs(delta) > 8) {
-                setZoom((prev) => Math.min(160, Math.max(100, prev + (delta > 0 ? 4 : -4))));
-                setTouchDist(newDist);
+        const onTouchMove = (e: TouchEvent) => {
+            if (e.touches.length === 2 && initialDist > 0) {
+                e.preventDefault(); // Stop mobile browser default page zoom/bounce
+                const currentDist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                const ratio = currentDist / initialDist;
+                const newScale = Math.min(2.5, Math.max(1, baseScale * ratio));
+                setPinchScale(newScale);
             }
-        }
-    };
+        };
 
-    const handleTouchEnd = () => {
-        setTouchDist(null);
-    };
+        const onTouchEnd = (e: TouchEvent) => {
+            if (e.touches.length < 2) {
+                initialDist = 0;
+            }
+        };
+
+        el.addEventListener('touchstart', onTouchStart, { passive: true });
+        el.addEventListener('touchmove', onTouchMove, { passive: false });
+        el.addEventListener('touchend', onTouchEnd, { passive: true });
+
+        return () => {
+            el.removeEventListener('touchstart', onTouchStart);
+            el.removeEventListener('touchmove', onTouchMove);
+            el.removeEventListener('touchend', onTouchEnd);
+        };
+    }, [isOpen, pinchScale]);
 
     return (
         <AnimatePresence>
@@ -113,7 +131,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                 </div>
                                 <div className="min-w-0">
                                     <h3 className="text-xs sm:text-sm font-bold text-white tracking-wide truncate" style={{ fontFamily: "'Urbanist', sans-serif" }}>
-                                        Chilldon Paul Carreon - Résumé
+                                        Chilldon Paul Carreon — Resume
                                     </h3>
                                     <p className="text-[10px] font-mono text-slate-400 hidden sm:block">
                                         {fitMode === 'page' ? 'Fit Page Mode (No Scroll)' : 'Scroll & Zoom Mode'}
@@ -123,7 +141,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
                             {/* Action Controls */}
                             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                                 {/* Fit Mode Toggle Button */}
+                                {/* Fit Mode Toggle Button */}
                                 <button
                                     onClick={() => {
                                         if (fitMode === 'page') {
@@ -132,6 +150,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                         } else {
                                             setFitMode('page');
                                             setZoom(100);
+                                            setPinchScale(1);
                                         }
                                     }}
                                     className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer border ${
@@ -169,7 +188,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                             {zoom}%
                                         </span>
                                         <button
-                                            onClick={() => setZoom((prev) => Math.min(110, prev + 5))}
+                                            onClick={() => setZoom((prev) => Math.min(115, prev + 5))}
                                             className="p-1.5 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
                                             title="Zoom In"
                                             aria-label="Zoom In"
@@ -204,12 +223,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
                         {/* Modal Body: High-Resolution Image Viewer */}
                         <div
+                            ref={containerRef}
                             className={`relative flex-1 w-full h-full bg-[#05060d] overflow-auto p-3 sm:p-6 overscroll-contain ${
                                 fitMode === 'page' ? 'flex items-center justify-center' : 'flex items-start justify-center pt-4 sm:pt-6 pb-8'
                             }`}
-                            onTouchStart={handleTouchStart}
-                            onTouchMove={handleTouchMove}
-                            onTouchEnd={handleTouchEnd}
                         >
                             {fitMode === 'page' ? (
                                 /* Fit Page Mode (Whole Document 100% visible, No Scroll) */
@@ -223,7 +240,12 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                 >
                                     <img
                                         src={previewImageUrl}
-                                        alt="Chilldon Paul Carreon - Official Résumé Preview"
+                                        alt="Chilldon Paul Carreon — Official Resume Preview"
+                                        style={{
+                                            transform: pinchScale > 1 ? `scale(${pinchScale})` : undefined,
+                                            transformOrigin: 'center center',
+                                            transition: 'transform 0.1s ease-out',
+                                        }}
                                         className="max-w-full max-h-full h-auto w-auto object-contain rounded-lg sm:rounded-xl shadow-2xl shadow-black/90 border border-slate-700/40 select-none bg-white"
                                         loading="eager"
                                     />
@@ -236,11 +258,14 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                         style={{
                                             width: `${(768 * zoom) / 100}px`,
                                             maxWidth: zoom <= 100 ? '100%' : 'none',
+                                            transform: pinchScale > 1 ? `scale(${pinchScale})` : undefined,
+                                            transformOrigin: 'top center',
+                                            transition: 'transform 0.1s ease-out',
                                         }}
                                     >
                                         <img
                                             src={previewImageUrl}
-                                            alt="Chilldon Paul Carreon - Official Résumé Preview"
+                                            alt="Chilldon Paul Carreon — Official Resume Preview"
                                             className="w-full h-auto rounded-lg sm:rounded-xl shadow-2xl shadow-black/90 border border-slate-700/40 select-none bg-white touch-pan-x touch-pan-y"
                                             loading="eager"
                                         />
@@ -259,6 +284,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                     } else {
                                         setFitMode('page');
                                         setZoom(100);
+                                        setPinchScale(1);
                                     }
                                 }}
                                 className="text-[11px] sm:text-xs text-indigo-400 hover:text-indigo-300 font-medium underline cursor-pointer truncate"
