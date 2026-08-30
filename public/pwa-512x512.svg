@@ -6,36 +6,33 @@
       <stop offset="100%" stop-color="#f472b6" />
     </linearGradient>
 
-    <filter id="chilly-glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="10" result="blur" />
+    <filter id="chilly-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
+
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&amp;family=Urbanist:wght@900&amp;display=swap');
-      .bracket {
+      .logo-text {
         font-family: 'Fira Code', 'Courier New', monospace;
         font-weight: 700;
-        font-size: 112px;
+        font-size: 100px;
+        text-anchor: middle;
+        dominant-baseline: central;
       }
-      .letter {
+      .letter-c {
         font-family: 'Urbanist', system-ui, -apple-system, sans-serif;
         font-weight: 900;
-        font-size: 132px;
+        font-size: 124px;
       }
     </style>
   </defs>
 
-  <!-- Background for PWA / App Icon -->
-  <rect width="512" height="512" fill="#070913" />
-
-  <!-- Centered & Glow Filtered Logo Mark -->
+  <!-- Transparent Background with Single Centered Text Anchor -->
   <g filter="url(#chilly-glow)" fill="url(#chilly-grad)">
-    <text x="82" y="292" class="bracket">&lt;</text>
-    <text x="210" y="298" class="letter">C</text>
-    <text x="344" y="292" class="bracket">/&gt;</text>
+    <text x="256" y="256" class="logo-text">&lt; <tspan class="letter-c" dy="2">C</tspan><tspan dy="-2"> /&gt;</tspan></text>
   </g>
 </svg>
-
