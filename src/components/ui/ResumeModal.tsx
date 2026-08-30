@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Download, ExternalLink, FileText, ZoomIn, ZoomOut, Maximize2, Minimize2 } from 'lucide-react';
 
@@ -19,15 +19,12 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 }) => {
     const [fitMode, setFitMode] = useState<'width' | 'page'>('page');
     const [zoom, setZoom] = useState<number>(100);
-    const [pinchScale, setPinchScale] = useState<number>(1);
-    const containerRef = useRef<HTMLDivElement>(null);
 
     // Reset settings when modal opens
     useEffect(() => {
         if (isOpen) {
             setFitMode('page');
             setZoom(100);
-            setPinchScale(1);
         }
     }, [isOpen]);
 
@@ -49,56 +46,6 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, [isOpen, onClose]);
-
-    // Native non-passive touchmove event listener for true 2-finger mobile pinch zoom
-    useEffect(() => {
-        if (!isOpen) return;
-
-        const el = containerRef.current;
-        if (!el) return;
-
-        let initialDist = 0;
-        let baseScale = pinchScale;
-
-        const onTouchStart = (e: TouchEvent) => {
-            if (e.touches.length === 2) {
-                initialDist = Math.hypot(
-                    e.touches[0].clientX - e.touches[1].clientX,
-                    e.touches[0].clientY - e.touches[1].clientY
-                );
-                baseScale = pinchScale;
-            }
-        };
-
-        const onTouchMove = (e: TouchEvent) => {
-            if (e.touches.length === 2 && initialDist > 0) {
-                e.preventDefault(); // Stop mobile browser default page zoom/bounce
-                const currentDist = Math.hypot(
-                    e.touches[0].clientX - e.touches[1].clientX,
-                    e.touches[0].clientY - e.touches[1].clientY
-                );
-                const ratio = currentDist / initialDist;
-                const newScale = Math.min(2.5, Math.max(1, baseScale * ratio));
-                setPinchScale(newScale);
-            }
-        };
-
-        const onTouchEnd = (e: TouchEvent) => {
-            if (e.touches.length < 2) {
-                initialDist = 0;
-            }
-        };
-
-        el.addEventListener('touchstart', onTouchStart, { passive: true });
-        el.addEventListener('touchmove', onTouchMove, { passive: false });
-        el.addEventListener('touchend', onTouchEnd, { passive: true });
-
-        return () => {
-            el.removeEventListener('touchstart', onTouchStart);
-            el.removeEventListener('touchmove', onTouchMove);
-            el.removeEventListener('touchend', onTouchEnd);
-        };
-    }, [isOpen, pinchScale]);
 
     return (
         <AnimatePresence>
@@ -150,7 +97,6 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                         } else {
                                             setFitMode('page');
                                             setZoom(100);
-                                            setPinchScale(1);
                                         }
                                     }}
                                     className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer border ${
@@ -223,50 +169,45 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
                         {/* Modal Body: High-Resolution Image Viewer */}
                         <div
-                            ref={containerRef}
                             className={`relative flex-1 w-full h-full bg-[#05060d] overflow-auto p-3 sm:p-6 overscroll-contain ${
                                 fitMode === 'page' ? 'flex items-center justify-center' : 'flex items-start justify-center pt-4 sm:pt-6 pb-8'
                             }`}
                         >
                             {fitMode === 'page' ? (
-                                /* Fit Page Mode (Whole Document 100% visible, No Scroll) */
+                                /* Fit Page Mode (Tap image to zoom into Scroll Mode) */
                                 <div
                                     className="w-full h-full flex items-center justify-center cursor-pointer"
                                     onClick={() => {
                                         setFitMode('width');
                                         setZoom(100);
                                     }}
-                                    title="Click to switch to Scroll & Zoom mode"
+                                    title="Tap image to zoom in"
                                 >
                                     <img
                                         src={previewImageUrl}
                                         alt="Chilldon Paul Carreon — Official Resume Preview"
-                                        style={{
-                                            transform: pinchScale > 1 ? `scale(${pinchScale})` : undefined,
-                                            transformOrigin: 'center center',
-                                            transition: 'transform 0.1s ease-out',
-                                        }}
-                                        className="max-w-full max-h-full h-auto w-auto object-contain rounded-lg sm:rounded-xl shadow-2xl shadow-black/90 border border-slate-700/40 select-none bg-white"
+                                        className="max-w-full max-h-full h-auto w-auto object-contain rounded-lg sm:rounded-xl shadow-2xl shadow-black/90 border border-slate-700/40 select-none bg-white cursor-pointer active:scale-98 transition-transform"
                                         loading="eager"
                                     />
                                 </div>
                             ) : (
-                                /* Scroll & Zoom Mode (Aligned to top so Name is never clipped, 2-finger pinch support) */
-                                <div className="transition-all duration-200 ease-out flex justify-center w-full shrink-0">
+                                /* Scroll & Zoom Mode (Tap image to zoom back out to Fit Page) */
+                                <div
+                                    className="transition-all duration-200 ease-out flex justify-center w-full shrink-0 cursor-pointer"
+                                    onClick={() => setFitMode('page')}
+                                    title="Tap image to fit page"
+                                >
                                     <div
                                         className="transition-all duration-200 ease-out"
                                         style={{
                                             width: `${(768 * zoom) / 100}px`,
                                             maxWidth: zoom <= 100 ? '100%' : 'none',
-                                            transform: pinchScale > 1 ? `scale(${pinchScale})` : undefined,
-                                            transformOrigin: 'top center',
-                                            transition: 'transform 0.1s ease-out',
                                         }}
                                     >
                                         <img
                                             src={previewImageUrl}
                                             alt="Chilldon Paul Carreon — Official Resume Preview"
-                                            className="w-full h-auto rounded-lg sm:rounded-xl shadow-2xl shadow-black/90 border border-slate-700/40 select-none bg-white touch-pan-x touch-pan-y"
+                                            className="w-full h-auto rounded-lg sm:rounded-xl shadow-2xl shadow-black/90 border border-slate-700/40 select-none bg-white"
                                             loading="eager"
                                         />
                                     </div>
@@ -284,19 +225,18 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                     } else {
                                         setFitMode('page');
                                         setZoom(100);
-                                        setPinchScale(1);
                                     }
                                 }}
                                 className="text-[11px] sm:text-xs text-indigo-400 hover:text-indigo-300 font-medium underline cursor-pointer truncate"
                             >
                                 {fitMode === 'page' ? (
                                     <>
-                                        <span className="sm:hidden">Fit Page • Switch Mode</span>
+                                        <span className="sm:hidden">Tap Image • Zoom In</span>
                                         <span className="hidden sm:inline">Mode: Fit Page (No Scroll) • Click for Scroll Mode</span>
                                     </>
                                 ) : (
                                     <>
-                                        <span className="sm:hidden">Scroll Mode • Switch</span>
+                                        <span className="sm:hidden">Tap Image • Fit Page</span>
                                         <span className="hidden sm:inline">Mode: Scroll & Zoom • Click for Fit Page</span>
                                     </>
                                 )}
