@@ -5,6 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     size?: 'sm' | 'md' | 'lg';
     href?: string;
     external?: boolean;
+    download?: string | boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -13,6 +14,7 @@ export const Button: React.FC<ButtonProps> = ({
     size = 'md',
     href,
     external = false,
+    download,
     className = '',
     ...props
 }) => {
@@ -45,6 +47,7 @@ export const Button: React.FC<ButtonProps> = ({
                 href={href}
                 target={external ? '_blank' : undefined}
                 rel={external ? 'noopener noreferrer' : undefined}
+                download={download ? (typeof download === 'string' ? download : true) : undefined}
                 className={combinedClass}
             >
                 {children}

@@ -3,9 +3,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { LogoMark } from '../ui/LogoMark';
+import { ResumeModal } from '../ui/ResumeModal';
 
 export const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isResumeOpen, setIsResumeOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('hero');
     const location = useLocation();
     const navigate = useNavigate();
@@ -174,8 +176,12 @@ export const Navbar: React.FC = () => {
                 {/* Action Button & Theme Toggle */}
                 <div className="hidden md:flex items-center gap-2.5">
                     <ThemeToggle />
-                    <Button variant="primary" size="sm" href="/resume.pdf" external>
-                        View Resume
+                    <Button
+                        variant="primary"
+                        size="sm"
+                        onClick={() => setIsResumeOpen(true)}
+                    >
+                        View Résumé
                     </Button>
                 </div>
 
@@ -205,7 +211,7 @@ export const Navbar: React.FC = () => {
 
             {/* Slide-out Drawer Panel (Full Screen Height, Solid Opaque) */}
             <div
-                className={`fixed top-0 right-0 bottom-0 h-screen w-[280px] sm:w-[320px] bg-slate-50 dark:bg-[#0c0e1d] border-l border-black/10 dark:border-white/10 shadow-2xl p-6 flex flex-col justify-between transition-transform duration-300 ease-out z-[101] overscroll-contain ${
+                className={`fixed top-0 right-0 bottom-0 h-[100dvh] max-h-[100dvh] w-[280px] sm:w-[320px] bg-slate-50 dark:bg-[#0c0e1d] border-l border-black/10 dark:border-white/10 shadow-2xl p-5 sm:p-6 pb-8 sm:pb-6 flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-out z-[101] overscroll-contain ${
                     isOpen ? 'translate-x-0' : 'translate-x-full'
                 }`}
             >
@@ -258,11 +264,13 @@ export const Navbar: React.FC = () => {
                     <Button
                         variant="primary"
                         size="md"
-                        href="/resume.pdf"
-                        external
+                        onClick={() => {
+                            setIsOpen(false);
+                            setIsResumeOpen(true);
+                        }}
                         className="w-full justify-center text-center shadow-md shadow-indigo-500/25 py-2.5"
                     >
-                        View Resume
+                        View Résumé
                     </Button>
                     <p className="text-[10px] font-mono text-center text-slate-500">
                         © 2026 Chilly • Portfolio
@@ -270,6 +278,14 @@ export const Navbar: React.FC = () => {
                 </div>
             </div>
         </div>
+
+        {/* Interactive Resume Modal Dialog */}
+        <ResumeModal
+            isOpen={isResumeOpen}
+            onClose={() => setIsResumeOpen(false)}
+            resumeUrl="/ChilldonPaulCarreon-Resume.pdf"
+            fileName="Chilldon_Paul_Carreon_Resume.pdf"
+        />
         </>
     );
 };
