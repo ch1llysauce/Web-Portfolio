@@ -170,7 +170,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                         {/* Modal Body: High-Resolution Image Viewer */}
                         <div
                             className={`relative flex-1 w-full h-full bg-slate-200/80 dark:bg-[#05060d] overflow-auto p-3 sm:p-6 overscroll-contain transition-colors ${
-                                fitMode === 'page' ? 'flex items-center justify-center' : 'flex items-start justify-center pt-4 sm:pt-6 pb-8'
+                                fitMode === 'page' ? 'flex items-center justify-center' : 'flex items-start justify-center'
                             }`}
                         >
                             {fitMode === 'page' ? (
@@ -185,15 +185,15 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                 >
                                     <img
                                         src={previewImageUrl}
-                                        alt="Chilldon Paul Carreon - Official Résumé Preview"
+                                        alt="Chilldon Paul Carreon — Official Resume Preview"
                                         className="max-w-full max-h-full h-auto w-auto object-contain rounded-lg sm:rounded-xl shadow-2xl shadow-slate-900/20 dark:shadow-black/90 border border-slate-300 dark:border-slate-700/40 select-none bg-white cursor-pointer active:scale-98 transition-transform"
                                         loading="eager"
                                     />
                                 </div>
                             ) : (
-                                /* Scroll & Zoom Mode (Proportional Smooth Relative Scaling) */
+                                /* Scroll & Zoom Mode (Guaranteed Left & Right Side Padding at all zoom levels) */
                                 <div
-                                    className="transition-all duration-200 ease-out flex justify-center w-full shrink-0 cursor-pointer"
+                                    className="transition-all duration-200 ease-out flex justify-center m-auto min-w-full cursor-pointer py-3 px-1.5"
                                     onClick={() => setFitMode('page')}
                                     title="Tap image to fit page"
                                 >
@@ -207,7 +207,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                         >
                                             <img
                                                 src={previewImageUrl}
-                                                alt="Chilldon Paul Carreon - Official Résumé Preview"
+                                                alt="Chilldon Paul Carreon — Official Resume Preview"
                                                 className="w-full h-auto rounded-lg sm:rounded-xl shadow-2xl shadow-slate-900/20 dark:shadow-black/90 border border-slate-300 dark:border-slate-700/40 select-none bg-white"
                                                 loading="eager"
                                             />

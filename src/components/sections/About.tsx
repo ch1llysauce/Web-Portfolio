@@ -60,50 +60,50 @@ export const About: React.FC = () => {
                     {/* Bottom Bento Highlights (2x2 Grid on ALL screens) */}
                     <div className="grid grid-cols-2 gap-2 sm:gap-2.5 pt-3 border-t border-black/10 dark:border-white/5">
                         {/* 1. Education */}
-                        <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.06] p-2.5 flex items-start gap-2.5 hover:border-indigo-500/30 transition-colors">
+                        <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.06] p-2 sm:p-2.5 flex items-start gap-2 sm:gap-2.5 hover:border-indigo-500/30 transition-colors">
                             <div className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5">
                                 <GraduationCap className="w-3.5 h-3.5" />
                             </div>
                             <div className="space-y-0.5 min-w-0">
                                 <div className="text-[9px] font-mono uppercase tracking-wider text-slate-500">Education</div>
-                                <div className="text-xs font-bold text-slate-900 dark:text-white leading-tight truncate">BS Computer Science</div>
-                                <div className="text-[10px] text-slate-500 dark:text-slate-400">Senior Undergrad</div>
+                                <div className="text-[11px] sm:text-xs font-bold text-slate-900 dark:text-white leading-tight">BS Computer Science</div>
+                                <div className="text-[10px] text-slate-500 dark:text-slate-400">Senior Undergraduate Student</div>
                             </div>
                         </div>
 
                         {/* 2. Location */}
-                        <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.06] p-2.5 flex items-start gap-2.5 hover:border-cyan-500/30 transition-colors">
+                        <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.06] p-2 sm:p-2.5 flex items-start gap-2 sm:gap-2.5 hover:border-cyan-500/30 transition-colors">
                             <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5">
                                 <MapPin className="w-3.5 h-3.5" />
                             </div>
                             <div className="space-y-0.5 min-w-0">
                                 <div className="text-[9px] font-mono uppercase tracking-wider text-slate-500">Location</div>
-                                <div className="text-xs font-bold text-slate-900 dark:text-white leading-tight truncate">Quezon City, Philippines</div>
-                                <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">Remote • Hybrid • On-site</div>
+                                <div className="text-[11px] sm:text-xs font-bold text-slate-900 dark:text-white leading-tight">Quezon City, Philippines</div>
+                                <div className="text-[10px] text-slate-500 dark:text-slate-400">On-site • Hybrid • Remote</div>
                             </div>
                         </div>
 
                         {/* 3. Target Role */}
-                        <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.06] p-2.5 flex items-start gap-2.5 hover:border-violet-500/30 transition-colors">
+                        <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.06] p-2 sm:p-2.5 flex items-start gap-2 sm:gap-2.5 hover:border-violet-500/30 transition-colors">
                             <div className="p-1.5 rounded-lg bg-violet-500/10 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5">
                                 <Briefcase className="w-3.5 h-3.5" />
                             </div>
                             <div className="space-y-0.5 min-w-0">
                                 <div className="text-[9px] font-mono uppercase tracking-wider text-slate-500">Target Role</div>
-                                <div className="text-xs font-bold text-slate-900 dark:text-white leading-tight truncate">Software Engineer</div>
-                                <div className="text-[10px] text-slate-500 dark:text-slate-400">Full-Stack & Mobile</div>
+                                <div className="text-[11px] sm:text-xs font-bold text-slate-900 dark:text-white leading-tight">Software Developer</div>
+                                <div className="text-[10px] text-slate-500 dark:text-slate-400">Full-Stack & Mobile Development</div>
                             </div>
                         </div>
 
                         {/* 4. Core Practice */}
-                        <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.06] p-2.5 flex items-start gap-2.5 hover:border-emerald-500/30 transition-colors">
+                        <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/[0.06] p-2 sm:p-2.5 flex items-start gap-2 sm:gap-2.5 hover:border-emerald-500/30 transition-colors">
                             <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5">
                                 <Sparkles className="w-3.5 h-3.5" />
                             </div>
                             <div className="space-y-0.5 min-w-0">
                                 <div className="text-[9px] font-mono uppercase tracking-wider text-slate-500">Core Practice</div>
-                                <div className="text-xs font-bold text-slate-900 dark:text-white leading-tight truncate">Modern Architecture</div>
-                                <div className="text-[10px] text-slate-500 dark:text-slate-400">Clean, Scalable, Tested</div>
+                                <div className="text-[11px] sm:text-xs font-bold text-slate-900 dark:text-white leading-tight">Modern Architecture</div>
+                                <div className="text-[10px] text-slate-500 dark:text-slate-400">Clean & Scalable</div>
                             </div>
                         </div>
                     </div>
