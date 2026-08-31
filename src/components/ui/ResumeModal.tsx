@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Download, ExternalLink, FileText, ZoomIn, ZoomOut, Maximize2, Minimize2 } from 'lucide-react';
+import { X, Download, FileText, ZoomIn, ZoomOut, Maximize2, Minimize2 } from 'lucide-react';
 
 interface ResumeModalProps {
     isOpen: boolean;
@@ -156,19 +156,6 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                     <span className="hidden xs:inline sm:inline">Download</span>
                                 </a>
 
-                                {/* View Raw PDF Action (Opens in New Tab) */}
-                                <a
-                                    href={resumeUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="p-1.5 sm:p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"
-                                    title="Open PDF in New Tab"
-                                    aria-label="Open PDF in New Tab"
-                                >
-                                    <ExternalLink className="w-4 h-4" />
-                                </a>
-
                                 {/* Close Button */}
                                 <button
                                     onClick={(e) => {
@@ -261,15 +248,9 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                                     </>
                                 )}
                             </button>
-                            <a
-                                href={resumeUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-semibold underline flex items-center gap-1 text-[11px] sm:text-xs shrink-0 whitespace-nowrap"
-                            >
-                                View PDF <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                            </a>
+                            <span className="text-[11px] sm:text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0">
+                                Page 1 of 1
+                            </span>
                         </div>
                     </motion.div>
                 </div>
